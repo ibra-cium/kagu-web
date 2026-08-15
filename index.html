@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BNLang v2 Web IDE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head> 
+<body>
+    <!-- Top Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-icon">BN</div>
+            <div class="brand-text">
+                <h1>BNLang IDE</h1>
+            </div>
+            <span class="badge-version">v2.0</span>
+        </div>
+        <div class="controls">
+            <select id="sel" aria-label="Load Example">
+                <option value="">📂 Load Example...</option>
+                <optgroup label="Basics & Variables">
+                    <option value="hello">01. Hello World & Types</option>
+                    <option value="compound">02. Compound Ops & Loops</option>
+                    <option value="logic">03. Logic (ebong, tasara, ulto)</option>
+                </optgroup>
+                <optgroup label="Arrays & Sorting">
+                    <option value="array_bubble">04. Arrays & Bubble Sort</option>
+                    <option value="array_func">05. Arrays in Functions</option>
+                </optgroup>
+                <optgroup label="Pointers & References">
+                    <option value="pointer_swap">06. Pointer Swap (bodlao)</option>
+                    <option value="pointer_minmax">07. Min/Max Finder (boro_choto)</option>
+                </optgroup>
+                <optgroup label="Functions & I/O">
+                    <option value="recursion">08. Recursion (Factorial)</option>
+                    <option value="input">09. Interactive Input (nao)</option>
+                </optgroup>
+            </select>
+            <button id="btn-cheat" class="btn-secondary" title="View Language Cheatsheet">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <span>Syntax</span>
+            </button>
+            <button id="run" class="btn-primary" title="Run Program (Ctrl+Enter)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Run</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Segmented View Controller -->
+    <div class="mobile-nav-segmented">
+        <button id="seg-editor" class="segment-btn active">💻 Source Editor</button>
+        <button id="seg-output" class="segment-btn">📊 Output & C</button>
+    </div>
+
+    <!-- Main Workspace -->
+    <main>
+        <!-- Panel 1: Source Editor -->
+        <div id="panel-editor" class="panel mobile-active">
+            <div class="panel-header">
+                <span class="panel-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <span>Source Code (Bangalish)</span>
+                </span>
+                <button id="btn-clear-src" class="icon-btn" title="Clear Editor">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span>Clear</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="editor-container">
+                    <div id="line-numbers" class="line-numbers">1</div>
+                    <textarea id="src" spellcheck="false" placeholder="// Write your BNLang code here..."></textarea>
+                </div>
+                <div class="stdin-container">
+                    <div class="stdin-header">
+                        <label class="stdin-label" for="in">Input (stdin for nao):</label>
+                    </div>
+                    <input type="text" id="in" placeholder="Enter input values (e.g. 10 20)...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 2: Output & Inspector -->
+        <div id="panel-output" class="panel">
+            <div class="panel-header">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="tab-out">Output</button>
+                    <button class="tab-btn" data-tab="tab-c">Generated C</button>
+                    <button class="tab-btn" data-tab="tab-ast">AST</button>
+                    <button class="tab-btn" data-tab="tab-tokens">Tokens</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span id="status-pill" class="status-pill">
+                        <span id="status-dot" class="status-dot"></span>
+                        <span id="status-text">Ready</span>
+                    </span>
+                    <button id="btn-copy" class="icon-btn" title="Copy to clipboard">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span id="copy-label">Copy</span>
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <pre id="tab-out" class="code-view active" placeholder="Run output will appear here..."></pre>
+                <pre id="tab-c" class="code-view"></pre>
+                <pre id="tab-ast" class="code-view"></pre>
+                <pre id="tab-tokens" class="code-view"></pre>
+            </div>
+        </div>
+    </main>
+
+    <!-- Error container -->
+    <div id="err"></div>
+
+    <!-- Timing & Shortcut Bar -->
+    <footer class="timing-bar">
+        <span id="timing-stats">Status: Ready</span>
+        <span class="shortcut-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Run</span>
+    </footer>
+
+    <!-- Syntax Cheatsheet Modal -->
+    <div id="modal-cheat" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    BNLang v2 Syntax Quick Reference
+                </h2>
+                <button id="modal-close" class="close-btn" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sheet-grid">
+                    <div class="sheet-card">
+                        <h3>Types &amp; Variables</h3>
+                        <code>shongkha x = 10; // int</code>
+                        <code>doshomik pi = 3.14; // float</code>
+                        <code>lekha name = "Rafi"; // string</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Arrays</h3>
+                        <code>shongkha t sorbochho(5);</code>
+                        <code>shongkha t sorbochho(3) = {1, 2, 3};</code>
+                        <code>t[0] = 99;</code>
+                        <code>dekhao(t[0]);</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Pointers &amp; References</h3>
+                        <code>shongkha pointer p = x.erthikana(); // &amp;x</code>
+                        <code>dekhao(p.erman()); // *p</code>
+                        <code>p.erman() = 25; // *p = 25</code>
+                        <code>shongkha pointer q = faka; // NULL</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Operators</h3>
+                        <code>x += 5; x -= 1; x *= 2; x /= 2; x %= 3;</code>
+                        <code>i++; i--;</code>
+                        <code>ebong (&amp;&amp;), tasara (||), ulto (!)</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Control Flow</h3>
+                        <code>jodi (a &gt; 0 ebong b &gt; 0) { }</code>
+                        <code>nahole jodi (a == 0) { } nahole { }</code>
+                        <code>jotokkhon (x &lt; 10) { x++; }</code>
+                        <code>chalao (shongkha i = 0; i &lt; 5; i++) { }</code>
+                        <code>thamo; // break</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Functions &amp; I/O</h3>
+                        <code>kaj shongkha jog(shongkha a, shongkha b) { ferot a + b; }</code>
+                        <code>kaj shongkha swap(shongkha pointer a) { }</code>
+                        <code>dekhao("Result: ", res, "\n");</code>
+                        <code>nao(x); nao(t[i]); nao(p.erman());</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bnlang.js"></script>
+    <script>
+        const exs = {
+            hello: `// 01. Hello World & Data Types
+shongkha a = 15;
+shongkha b = 4;
+shongkha jog = a + b;
+shongkha gun = a * b;
+doshomik vag = 15.0 / 4.0;
+lekha barta = "BNLang v2 is working!";
+
+dekhao(barta, "\\n");
+dekhao("a + b = ", jog, "\\n");
+dekhao("a * b = ", gun, "\\n");
+dekhao("15.0 / 4.0 = ", vag, "\\n");
+`,
+            compound: `// 02. Compound Operators & Increment/Decrement
+shongkha count = 10;
+count += 5;
+dekhao("count += 5 -> ", count, "\\n");
+
+count -= 3;
+dekhao("count -= 3 -> ", count, "\\n");
+
+count *= 2;
+dekhao("count *= 2 -> ", count, "\\n");
+
+count /= 4;
+dekhao("count /= 4 -> ", count, "\\n");
+
+count %= 5;
+dekhao("count %= 5 -> ", count, "\\n");
+
+dekhao("Chalao loop with i++: ");
+chalao (shongkha i = 1; i <= 5; i++) {
+    dekhao(i, " ");
+}
+dekhao("\\n");
+`,
+            logic: `// 03. Logical Operators (ebong, tasara, ulto) & Leap Year
+shongkha year = 2024;
+
+jodi ((year % 4 == 0 ebong ulto (year % 100 == 0)) tasara (year % 400 == 0)) {
+    dekhao(year, " holo leap year!\\n");
+} nahole {
+    dekhao(year, " leap year na.\\n");
+}
+
+shongkha boyos = 21;
+shongkha citizen = 1;
+jodi (boyos >= 18 ebong citizen == 1) {
+    dekhao("Voter hishebe joggo.\\n");
+}
+`,
+            array_bubble: `// 04. Arrays & Bubble Sort
+shongkha talika sorbochho(6) = {64, 34, 25, 12, 22, 11};
+
+dekhao("Aager talika: ");
+chalao (shongkha i = 0; i < 6; i++) {
+    dekhao(talika[i], " ");
+}
+dekhao("\\n");
+
+// Bubble sort algorithm
+chalao (shongkha i = 0; i < 5; i++) {
+    chalao (shongkha j = 0; j < 5 - i; j++) {
+        jodi (talika[j] > talika[j + 1]) {
+            shongkha tmp = talika[j];
+            talika[j] = talika[j + 1];
+            talika[j + 1] = tmp;
+        }
+    }
+}
+
+dekhao("Sajano talika: ");
+chalao (shongkha i = 0; i < 6; i++) {
+    dekhao(talika[i], " ");
+}
+dekhao("\\n");
+`,
+            array_func: `// 05. Passing Arrays to Functions
+kaj shongkha jogfol(shongkha a sorbochho(), shongkha size) {
+    shongkha mot = 0;
+    chalao (shongkha i = 0; i < size; i++) {
+        mot += a[i];
+    }
+    ferot mot;
+}
+
+shongkha marks sorbochho(5) = {85, 90, 78, 92, 88};
+shongkha total = jogfol(marks, 5);
+
+dekhao("Mot number: ", total, "\\n");
+dekhao("Gord number: ", total / 5, "\\n");
+`,
+            pointer_swap: `// 06. Pointer Swap (Pass by Reference)
+kaj shongkha bodlao(shongkha pointer a, shongkha pointer b) {
+    shongkha tmp = a.erman();
+    a.erman() = b.erman();
+    b.erman() = tmp;
+    ferot 0;
+}
+
+shongkha x = 100;
+shongkha y = 500;
+
+dekhao("Aage: x = ", x, ", y = ", y, "\\n");
+bodlao(x.erthikana(), y.erthikana());
+dekhao("Pore: x = ", x, ", y = ", y, "\\n");
+`,
+            pointer_minmax: `// 07. Find Min and Max using Pointers
+kaj shongkha boro_choto(shongkha a, shongkha b, shongkha pointer boro, shongkha pointer choto) {
+    jodi (a > b) {
+        boro.erman() = a;
+        choto.erman() = b;
+    } nahole {
+        boro.erman() = b;
+        choto.erman() = a;
+    }
+    ferot 0;
+}
+
+shongkha p = 45;
+shongkha q = 80;
+shongkha max = 0;
+shongkha min = 0;
+
+boro_choto(p, q, max.erthikana(), min.erthikana());
+
+dekhao("Duti shongkha: ", p, " ebong ", q, "\\n");
+dekhao("Boro shongkha: ", max, "\\n");
+dekhao("Choto shongkha: ", min, "\\n");
+`,
+            recursion: `// 08. Recursive Factorial
+kaj shongkha factorial(shongkha n) {
+    jodi (n <= 1) {
+        ferot 1;
+    }
+    ferot n * factorial(n - 1);
+}
+
+chalao (shongkha i = 1; i <= 6; i++) {
+    dekhao(i, "! = ", factorial(i), "\\n");
+}
+`,
+            input: `// 09. Interactive Input with nao()
+dekhao("Duti shongkha input dao: \\n");
+shongkha a = 0;
+shongkha b = 0;
+nao(a);
+nao(b);
+
+dekhao("Jogfol: ", a + b, "\\n");
+dekhao("Gunfol: ", a * b, "\\n");
+`
+        };
+
+        const $ = id => document.getElementById(id);
+        const srcEl = $('src');
+        const lineNumsEl = $('line-numbers');
+        let mod, cFn, cInFn;
+
+        // Line Numbers Updater
+        function updateLineNumbers() {
+            const lines = srcEl.value.split('\n').length;
+            let numHtml = '';
+            for (let i = 1; i <= lines; i++) {
+                numHtml += i + '<br>';
+            }
+            lineNumsEl.innerHTML = numHtml;
+        }
+
+        srcEl.addEventListener('input', updateLineNumbers);
+        srcEl.addEventListener('scroll', () => {
+            lineNumsEl.scrollTop = srcEl.scrollTop;
+        });
+
+        // Set initial example
+        srcEl.value = exs.hello;
+        updateLineNumbers();
+
+        // Mobile Segmented Switcher
+        const panelEditor = $('panel-editor');
+        const panelOutput = $('panel-output');
+        const segEditor = $('seg-editor');
+        const segOutput = $('seg-output');
+
+        segEditor.onclick = () => {
+            segEditor.classList.add('active');
+            segOutput.classList.remove('active');
+            panelEditor.classList.add('mobile-active');
+            panelOutput.classList.remove('mobile-active');
+        };
+
+        segOutput.onclick = () => {
+            segOutput.classList.add('active');
+            segEditor.classList.remove('active');
+            panelOutput.classList.add('mobile-active');
+            panelEditor.classList.remove('mobile-active');
+        };
+
+        // Example dropdown selection
+        $('sel').onchange = e => {
+            if (e.target.value && exs[e.target.value]) {
+                srcEl.value = exs[e.target.value];
+                updateLineNumbers();
+                if (e.target.value === 'input') {
+                    $('in').value = '12 8';
+                }
+                // Switch back to editor on mobile when loading example
+                if (window.innerWidth <= 768) {
+                    segEditor.click();
+                }
+            }
+        };
+
+        // Tab indentation support & keyboard shortcut
+        srcEl.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 4;
+                updateLineNumbers();
+            } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                $('run').click();
+            }
+        });
+
+        // Status pill helper
+        function setStatus(state, msg) {
+            const dot = $('status-dot');
+            const text = $('status-text');
+            dot.className = 'status-dot ' + (state === 'loading' ? 'loading' : state === 'error' ? 'error' : '');
+            text.innerText = msg;
+        }
+
+        setStatus('loading', 'Loading compiler...');
+
+        if (typeof createBNLang !== 'undefined') {
+            createBNLang().then(m => {
+                mod = m;
+                try { cInFn = mod.cwrap('bnlang_compile_with_input', 'number', ['string', 'string']); } catch(e) {}
+                cFn = mod.cwrap('bnlang_compile', 'number', ['string']);
+                setStatus('ready', 'Ready');
+                $('timing-stats').innerText = 'Compiler engine loaded & ready';
+            }).catch(err => {
+                setStatus('error', 'Init failed');
+                $('err').className = 'has-errors';
+                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Failed to initialize engine: ${err.message}</div></div>`;
+            });
+        }
+
+        // Tab Switching in Output Inspector
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.code-view').forEach(v => v.classList.remove('active'));
+                btn.classList.add('active');
+                $(btn.dataset.tab).classList.add('active');
+            };
+        });
+
+        // Copy button
+        $('btn-copy').onclick = () => {
+            const activeTab = document.querySelector('.code-view.active');
+            if (activeTab && activeTab.textContent) {
+                navigator.clipboard.writeText(activeTab.textContent).then(() => {
+                    const copyLabel = $('copy-label');
+                    copyLabel.innerText = 'Copied!';
+                    setTimeout(() => copyLabel.innerText = 'Copy', 1500);
+                });
+            }
+        };
+
+        // Clear button
+        $('btn-clear-src').onclick = () => {
+            srcEl.value = '';
+            updateLineNumbers();
+            srcEl.focus();
+        };
+
+        // Modal Cheatsheet
+        $('btn-cheat').onclick = () => $('modal-cheat').classList.add('open');
+        $('modal-close').onclick = () => $('modal-cheat').classList.remove('open');
+        $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) $('modal-cheat').classList.remove('open'); };
+
+        // Run / Compile
+        $('run').onclick = () => {
+            if (!mod || (!cFn && !cInFn)) return alert("Compiler is still initializing. Please wait a moment.");
+            
+            setStatus('loading', 'Compiling...');
+            $('err').innerHTML = '';
+            $('err').classList.remove('has-errors');
+            $('tab-out').textContent = '';
+            $('tab-c').textContent = '';
+            $('tab-ast').textContent = '';
+            $('tab-tokens').textContent = '';
+
+            let ptr = 0;
+            try {
+                const srcCode = srcEl.value;
+                const stdinData = $('in').value;
+                ptr = cInFn ? cInFn(srcCode, stdinData) : cFn(srcCode);
+                const resJson = mod.UTF8ToString(ptr);
+                const res = JSON.parse(resJson);
+
+                if (res.ok) {
+                    setStatus('ready', 'Success');
+                    $('tab-out').textContent = res.output || '(Program executed successfully with no output)';
+                    $('tab-c').textContent = res.c_code || '';
+                    $('tab-ast').textContent = res.ast || '';
+                    if (res.tokens) {
+                        $('tab-tokens').textContent = res.tokens.map(t => 
+                            `[L${t.line}:${t.col}] ${t.type.padEnd(16)} "${t.lexeme}"`
+                        ).join('\n');
+                    }
+                } else {
+                    setStatus('error', `${res.errors.length} Error(s)`);
+                    $('err').classList.add('has-errors');
+                    res.errors.forEach(e => {
+                        const card = document.createElement('div');
+                        card.className = 'error-card';
+                        card.innerHTML = `
+                            <div class="error-header">
+                                <span class="error-badge">${e.kind || 'error'}</span>
+                                <span class="error-loc">Line ${e.line}, Col ${e.col}</span>
+                            </div>
+                            <div class="error-msg">${e.message || ''}</div>
+                            ${e.suggestion ? `<div class="error-sug">💡 ${e.suggestion}</div>` : ''}
+                        `;
+                        $('err').appendChild(card);
+                    });
+                    if (res.c_code) $('tab-c').textContent = res.c_code;
+                    if (res.ast) $('tab-ast').textContent = res.ast;
+                }
+
+                // Automatically switch to output on mobile when running
+                if (window.innerWidth <= 768) {
+                    segOutput.click();
+                }
+
+                // Show timings
+                if (res.timing_ms) {
+                    const t = res.timing_ms;
+                    $('timing-stats').innerText = `Lex: ${t.lex.toFixed(2)}ms | Parse: ${t.parse.toFixed(2)}ms | Semantic: ${t.semantic.toFixed(2)}ms | Codegen: ${t.codegen.toFixed(2)}ms`;
+                }
+            } catch (err) {
+                setStatus('error', 'Exception');
+                $('err').classList.add('has-errors');
+                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Exception: ${err.message}</div></div>`;
+            } finally {
+                if (ptr) mod._bnlang_free(ptr);
+            }
+        };
+    </script>
+</body>
+</html>

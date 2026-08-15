@@ -1,0 +1,13 @@
+// a bubble sort
+shongkha t sorbochho(6) = {5, 2, 9, 1, 7, 3};
+chalao (shongkha i = 0; i < 5; i++) {
+    chalao (shongkha j = 0; j < 5 - i; j++) {
+        jodi (t[j] > t[j + 1]) {
+            shongkha tmp = t[j];
+            t[j] = t[j + 1];
+            t[j + 1] = tmp;
+        }
+    }
+}
+chalao (shongkha i = 0; i < 6; i++) { dekhao(t[i], " "); }
+dekhao("\n");

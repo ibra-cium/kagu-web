@@ -1,0 +1,6 @@
+shongkha year = 2024;
+jodi ((year % 4 == 0 ebong ulto (year % 100 == 0)) tasara (year % 400 == 0)) {
+    dekhao(year, " leap year\n");
+} nahole {
+    dekhao(year, " leap year na\n");
+}

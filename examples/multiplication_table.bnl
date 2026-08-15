@@ -1,0 +1,7 @@
+shongkha num = 5;
+shongkha i = 1;
+jotokkhon (i <= 10) {
+    shongkha result = num * i;
+    dekhao(num, " x ", i, " = ", result, "\n");
+    i++;
+}

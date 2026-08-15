@@ -1,0 +1,22 @@
+// Find larger and smaller numbers using pointers
+kaj shongkha boro_choto(shongkha a, shongkha b, shongkha pointer boro, shongkha pointer choto) {
+    jodi (a > b) {
+        boro.erman() = a;
+        choto.erman() = b;
+    } nahole {
+        boro.erman() = b;
+        choto.erman() = a;
+    }
+    ferot 0;
+}
+
+shongkha p = 45;
+shongkha q = 80;
+shongkha max = 0;
+shongkha min = 0;
+
+boro_choto(p, q, max.erthikana(), min.erthikana());
+
+dekhao("Duti shongkha: ", p, " ebong ", q, "\n");
+dekhao("Boro shongkha: ", max, "\n");
+dekhao("Choto shongkha: ", min, "\n");

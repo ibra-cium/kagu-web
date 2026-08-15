@@ -1,0 +1,11 @@
+// Recursion Example (Factorial)
+kaj shongkha factorial(shongkha n) {
+    jodi (n <= 1) {
+        ferot 1;
+    }
+    ferot n * factorial(n - 1);
+}
+
+chalao (shongkha i = 1; i <= 6; i++) {
+    dekhao(i, "! = ", factorial(i), "\n");
+}

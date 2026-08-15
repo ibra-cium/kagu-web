@@ -1,0 +1,15 @@
+// Pointer swap example (pass by reference)
+kaj shongkha bodlao(shongkha pointer a, shongkha pointer b) {
+    shongkha tmp = a.erman();
+    a.erman() = b.erman();
+    b.erman() = tmp;
+    ferot 0;
+}
+
+shongkha x = 10;
+shongkha y = 20;
+dekhao("Aage: x = ", x, ", y = ", y, "\n");
+
+bodlao(x.erthikana(), y.erthikana());
+
+dekhao("Pore: x = ", x, ", y = ", y, "\n");

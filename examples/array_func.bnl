@@ -1,0 +1,14 @@
+// Passing Arrays to Functions
+kaj shongkha jogfol(shongkha a sorbochho(), shongkha size) {
+    shongkha mot = 0;
+    chalao (shongkha i = 0; i < size; i++) {
+        mot += a[i];
+    }
+    ferot mot;
+}
+
+shongkha marks sorbochho(5) = {85, 90, 78, 92, 88};
+shongkha total = jogfol(marks, 5);
+
+dekhao("Mot number: ", total, "\n");
+dekhao("Gord number: ", total / 5, "\n");

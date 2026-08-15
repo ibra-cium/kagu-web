@@ -1,0 +1,12 @@
+// Hello World and Basic Data Types
+shongkha a = 15;
+shongkha b = 4;
+shongkha jog = a + b;
+shongkha gun = a * b;
+doshomik vag = 15.0 / 4.0;
+lekha barta = "BNLang v2 is working!";
+
+dekhao(barta, "\n");
+dekhao("a + b = ", jog, "\n");
+dekhao("a * b = ", gun, "\n");
+dekhao("15.0 / 4.0 = ", vag, "\n");

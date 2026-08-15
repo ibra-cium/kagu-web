@@ -1,0 +1,9 @@
+// Interactive User Input with nao()
+dekhao("Duti shongkha input dao: \n");
+shongkha a = 0;
+shongkha b = 0;
+nao(a);
+nao(b);
+
+dekhao("Jogfol: ", a + b, "\n");
+dekhao("Gunfol: ", a * b, "\n");

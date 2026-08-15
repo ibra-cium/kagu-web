@@ -1,0 +1,22 @@
+// Compound Assignment and Increment/Decrement
+shongkha count = 10;
+count += 5;
+dekhao("count += 5 -> ", count, "\n");
+
+count -= 3;
+dekhao("count -= 3 -> ", count, "\n");
+
+count *= 2;
+dekhao("count *= 2 -> ", count, "\n");
+
+count /= 4;
+dekhao("count /= 4 -> ", count, "\n");
+
+count %= 5;
+dekhao("count %= 5 -> ", count, "\n");
+
+dekhao("Chalao loop with i++: ");
+chalao (shongkha i = 1; i <= 5; i++) {
+    dekhao(i, " ");
+}
+dekhao("\n");
