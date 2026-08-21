@@ -53,8 +53,14 @@
 
     <!-- Mobile Segmented View Controller -->
     <div class="mobile-nav-segmented">
-        <button id="seg-editor" class="segment-btn active">💻 Source Editor</button>
-        <button id="seg-output" class="segment-btn">📊 Output & C</button>
+        <button id="seg-editor" class="segment-btn active">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Source Editor</span>
+        </button>
+        <button id="seg-output" class="segment-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span>Output &amp; C</span>
+        </button>
     </div>
 
     <!-- Main Workspace -->
@@ -67,10 +73,13 @@
                     <span>Source Code (Bangalish)</span>
                 </span>
                 <div class="editor-toolbar">
-                    <button id="btn-font-down" class="toolbar-btn" title="Decrease font size (A-)">A−</button>
+                    <button id="btn-font-down" class="toolbar-btn" title="Decrease font size (A-)">A-</button>
                     <button id="btn-font-up" class="toolbar-btn" title="Increase font size (A+)">A+</button>
                     <div class="toolbar-sep"></div>
-                    <button id="btn-wrap" class="toolbar-btn" title="Toggle word wrap">↩ Wrap</button>
+                    <button id="btn-wrap" class="toolbar-btn" title="Toggle word wrap">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                        <span>Wrap</span>
+                    </button>
                     <div class="toolbar-sep"></div>
                     <button id="btn-clear-src" class="icon-btn" title="Clear Editor">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -84,6 +93,7 @@
                     <div class="editor-scroll-wrapper">
                         <pre id="highlight-layer" aria-hidden="true"><code></code></pre>
                         <textarea id="src" spellcheck="false" placeholder="// Write your BNLang code here..."></textarea>
+                        <div id="autocomplete-dropdown" class="autocomplete-dropdown" role="listbox" aria-label="Completions"></div>
                     </div>
                 </div>
                 <div class="stdin-container">
@@ -455,7 +465,7 @@ dekhao("Gunfol: ", a * b, "\\n");
         }
 
         // ============================================================
-        // Scroll Sync: textarea → highlight layer + line numbers
+        // Scroll Sync: textarea -> highlight layer + line numbers
         // ============================================================
         function syncScroll() {
             const scrollTop = srcEl.scrollTop;
@@ -711,6 +721,291 @@ dekhao("Gunfol: ", a * b, "\\n");
         // ============================================================
         // Run / Compile
         // ============================================================
+
+        // ============================================================
+        // Autocomplete Engine (VS Code-style suggestions)
+        // ============================================================
+        (function initAutocomplete() {
+            // ---- Completion Database ----
+            // kind: 'kw' = keyword, 'fn' = built-in function, 'sn' = snippet
+            // insert: what gets inserted (|cursor| marks cursor position after)
+            // detail: right-side hint shown in dropdown
+            const COMPLETIONS = [
+                // Types
+                { label: 'shongkha',   kind: 'kw', insert: 'shongkha ',       detail: 'int' },
+                { label: 'doshomik',   kind: 'kw', insert: 'doshomik ',        detail: 'float' },
+                { label: 'lekha',      kind: 'kw', insert: 'lekha ',           detail: 'char[100]' },
+                { label: 'pointer',    kind: 'kw', insert: 'pointer ',         detail: 'pointer type' },
+                { label: 'sorbochho', kind: 'kw', insert: 'sorbochho(|)',      detail: 'array size' },
+
+                // Control flow keywords
+                { label: 'jodi',       kind: 'kw', insert: 'jodi',             detail: 'if' },
+                { label: 'nahole',     kind: 'kw', insert: 'nahole',           detail: 'else' },
+                { label: 'jotokkhon', kind: 'kw', insert: 'jotokkhon',        detail: 'while' },
+                { label: 'chalao',     kind: 'kw', insert: 'chalao',           detail: 'for' },
+                { label: 'thamo',      kind: 'kw', insert: 'thamo;',           detail: 'break' },
+                { label: 'ferot',      kind: 'kw', insert: 'ferot ',           detail: 'return' },
+                { label: 'kaj',        kind: 'kw', insert: 'kaj',              detail: 'function' },
+                { label: 'faka',       kind: 'kw', insert: 'faka',             detail: 'NULL' },
+
+                // Logical operators
+                { label: 'ebong',      kind: 'kw', insert: 'ebong ',           detail: '&&' },
+                { label: 'tasara',     kind: 'kw', insert: 'tasara ',          detail: '||' },
+                { label: 'ulto',       kind: 'kw', insert: 'ulto',             detail: '! (not)' },
+                { label: 'sotti',      kind: 'kw', insert: 'sotti',            detail: 'true (1)' },
+                { label: 'mittha',     kind: 'kw', insert: 'mittha',           detail: 'false (0)' },
+
+                // Built-in functions / method calls
+                { label: 'dekhao',     kind: 'fn', insert: 'dekhao(|)',        detail: 'print' },
+                { label: 'nao',        kind: 'fn', insert: 'nao(|)',           detail: 'input' },
+                { label: 'erthikana',  kind: 'fn', insert: '.erthikana()',     detail: '& address-of' },
+                { label: 'erman',      kind: 'fn', insert: '.erman()',         detail: '* dereference' },
+                { label: 'lomba',      kind: 'fn', insert: '.lomba()',         detail: 'array length' },
+
+                // Snippets
+                { label: 'jodi block',      kind: 'sn', insert: 'jodi (|) {\n    \n}',                     detail: 'if statement' },
+                { label: 'nahole block',    kind: 'sn', insert: 'nahole {\n    |\n}',                      detail: 'else block' },
+                { label: 'nahole jodi',     kind: 'sn', insert: 'nahole jodi (|) {\n    \n}',              detail: 'else if' },
+                { label: 'jodi-nahole',     kind: 'sn', insert: 'jodi (|) {\n    \n} nahole {\n    \n}',  detail: 'if-else' },
+                { label: 'jotokkhon block', kind: 'sn', insert: 'jotokkhon (|) {\n    \n}',               detail: 'while loop' },
+                { label: 'chalao loop',     kind: 'sn', insert: 'chalao (shongkha i = 0; i < |; i++) {\n    \n}', detail: 'for loop' },
+                { label: 'kaj function',    kind: 'sn', insert: 'kaj shongkha |(shongkha a) {\n    ferot a;\n}', detail: 'function def' },
+                { label: 'array decl',      kind: 'sn', insert: 'shongkha | sorbochho(5);',               detail: 'array declaration' },
+                { label: 'pointer decl',    kind: 'sn', insert: 'shongkha pointer | = faka;',             detail: 'pointer declaration' },
+            ];
+
+            const ICON_TEXT = { kw: 'KW', fn: 'fn', sn: '{}' };
+
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            const textarea = document.getElementById('src');
+            const editorContainer = document.getElementById('editor-container');
+
+            let acItems = [];       // filtered completions
+            let acIndex = -1;       // selected index
+            let acVisible = false;
+
+            // ---- Helpers ----
+
+            // Get the word currently being typed at cursor position
+            function getCurrentWord(ta) {
+                const pos = ta.selectionStart;
+                const text = ta.value;
+                // Walk left to find word boundary (alphanumeric + underscore + hyphen)
+                let start = pos;
+                while (start > 0 && /[\w-]/.test(text[start - 1])) start--;
+                return { word: text.slice(start, pos), start, end: pos };
+            }
+
+            // Filter completions by prefix
+            function filterCompletions(prefix) {
+                if (!prefix || prefix.length < 2) return [];
+                const low = prefix.toLowerCase();
+                return COMPLETIONS.filter(c => c.label.toLowerCase().startsWith(low))
+                    .sort((a, b) => {
+                        // Exact matches first, then by label length
+                        const aExact = a.label.toLowerCase() === low;
+                        const bExact = b.label.toLowerCase() === low;
+                        if (aExact && !bExact) return -1;
+                        if (!aExact && bExact) return 1;
+                        return a.label.length - b.label.length;
+                    });
+            }
+
+            // Build highlighted label (matching prefix is highlighted)
+            function buildLabel(label, prefix) {
+                const low = label.toLowerCase();
+                const idx = low.indexOf(prefix.toLowerCase());
+                if (idx === -1) return `<span class="ac-label-main">${escHtml(label)}</span>`;
+                return (
+                    `<span class="ac-label-main">${escHtml(label.slice(0, idx))}</span>` +
+                    `<span class="ac-label-match">${escHtml(label.slice(idx, idx + prefix.length))}</span>` +
+                    `<span class="ac-label-main">${escHtml(label.slice(idx + prefix.length))}</span>`
+                );
+            }
+
+            function escHtml(s) {
+                return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            }
+
+            // Position the dropdown near the cursor
+            function positionDropdown() {
+                // Use a hidden <span> mirror technique
+                const pos = textarea.selectionStart;
+                const text = textarea.value.slice(0, pos);
+                
+                const mirror = document.createElement('div');
+                const style = window.getComputedStyle(textarea);
+                mirror.style.cssText = `
+                    position: absolute; visibility: hidden; white-space: pre-wrap; word-wrap: break-word;
+                    width: ${textarea.clientWidth}px;
+                    font: ${style.font}; padding: ${style.padding};
+                    border: ${style.border}; box-sizing: ${style.boxSizing};
+                    tab-size: ${style.tabSize}; overflow-wrap: ${style.overflowWrap};
+                    line-height: ${style.lineHeight};
+                `;
+                const span = document.createElement('span');
+                span.textContent = text;
+                mirror.appendChild(span);
+                document.body.appendChild(mirror);
+                
+                const spanRect = span.getBoundingClientRect();
+                const taRect = textarea.getBoundingClientRect();
+                document.body.removeChild(mirror);
+
+                // Compute line height
+                const lineH = parseFloat(style.lineHeight) || 18;
+                
+                // Approximate position: use textarea top + scroll offset + estimated caret pos
+                const lines = text.split('\n');
+                const row = lines.length - 1;
+                const col = lines[row].length;
+
+                // Use a character-width approximation for monospace
+                const charW = parseFloat(style.fontSize) * 0.6;
+                const padLeft = parseFloat(style.paddingLeft) || 0;
+                const padTop = parseFloat(style.paddingTop) || 0;
+
+                let left = taRect.left + padLeft + col * charW;
+                let top = taRect.top + padTop + (row + 1) * lineH - textarea.scrollTop;
+
+                // Clamp to viewport
+                const ddW = 280;
+                const ddH = Math.min(240, acItems.length * 28 + 8);
+                if (left + ddW > window.innerWidth - 8) left = window.innerWidth - ddW - 8;
+                if (top + ddH > window.innerHeight - 8) top = top - ddH - lineH;
+
+                dropdown.style.left = left + 'px';
+                dropdown.style.top  = top + 'px';
+            }
+
+            // Render dropdown items
+            function renderDropdown(prefix) {
+                dropdown.innerHTML = '';
+                acItems.forEach((item, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'ac-item' + (i === acIndex ? ' ac-selected' : '');
+                    el.setAttribute('role', 'option');
+                    el.innerHTML = `
+                        <span class="ac-icon ${item.kind}">${ICON_TEXT[item.kind]}</span>
+                        <span class="ac-label">${buildLabel(item.label, prefix)}</span>
+                        <span class="ac-detail">${escHtml(item.detail)}</span>
+                        <span class="ac-tab-hint">TAB</span>
+                    `;
+                    el.addEventListener('mousedown', (e) => {
+                        e.preventDefault(); // don't steal focus
+                        acIndex = i;
+                        acceptCompletion();
+                    });
+                    dropdown.appendChild(el);
+                });
+            }
+
+            function showDropdown(prefix) {
+                acVisible = true;
+                dropdown.style.display = 'block';
+                positionDropdown();
+                renderDropdown(prefix);
+                // Scroll selected item into view
+                const sel = dropdown.querySelector('.ac-selected');
+                if (sel) sel.scrollIntoView({ block: 'nearest' });
+            }
+
+            function hideDropdown() {
+                acVisible = false;
+                acItems = [];
+                acIndex = -1;
+                dropdown.style.display = 'none';
+                dropdown.innerHTML = '';
+            }
+
+            // Accept the currently selected completion
+            function acceptCompletion() {
+                if (acIndex < 0 || acIndex >= acItems.length) return;
+                const item = acItems[acIndex];
+                const { word, start, end } = getCurrentWord(textarea);
+
+                // For snippets that start with '.', don't replace the word
+                let replaceStart = start;
+                let replaceText = item.insert;
+
+                // Find cursor position marker '|'
+                const cursorMarker = replaceText.indexOf('|');
+                let cursorOffset = cursorMarker === -1 ? replaceText.length : cursorMarker;
+                replaceText = replaceText.replace('|', '');
+
+                // Perform the replacement
+                const before = textarea.value.slice(0, replaceStart);
+                const after  = textarea.value.slice(end);
+                textarea.value = before + replaceText + after;
+
+                // Set cursor position
+                const newPos = replaceStart + cursorOffset;
+                textarea.setSelectionRange(newPos, newPos);
+
+                // Trigger highlight + line number update
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                textarea.focus();
+                hideDropdown();
+            }
+
+            // ---- Event Listeners ----
+
+            textarea.addEventListener('input', () => {
+                const { word } = getCurrentWord(textarea);
+                acItems = filterCompletions(word);
+                if (acItems.length === 0) {
+                    hideDropdown();
+                    return;
+                }
+                // Auto-select first item
+                acIndex = 0;
+                showDropdown(word);
+            });
+
+            textarea.addEventListener('keydown', (e) => {
+                if (!acVisible) return;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    acIndex = (acIndex + 1) % acItems.length;
+                    renderDropdown(getCurrentWord(textarea).word);
+                    const sel = dropdown.querySelector('.ac-selected');
+                    if (sel) sel.scrollIntoView({ block: 'nearest' });
+                }
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    acIndex = (acIndex - 1 + acItems.length) % acItems.length;
+                    renderDropdown(getCurrentWord(textarea).word);
+                    const sel = dropdown.querySelector('.ac-selected');
+                    if (sel) sel.scrollIntoView({ block: 'nearest' });
+                }
+                else if (e.key === 'Tab' || e.key === 'Enter') {
+                    if (acIndex >= 0) {
+                        e.preventDefault();
+                        acceptCompletion();
+                    }
+                }
+                else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    hideDropdown();
+                }
+            });
+
+            textarea.addEventListener('blur', () => {
+                // Small delay so mousedown on dropdown items still fires
+                setTimeout(hideDropdown, 150);
+            });
+
+            textarea.addEventListener('scroll', () => {
+                if (acVisible) positionDropdown();
+            });
+
+            window.addEventListener('resize', () => {
+                if (acVisible) positionDropdown();
+            });
+
+        })(); // end initAutocomplete
+
         $('run').onclick = () => {
             if (!mod || (!cFn && !cInFn)) return alert("Compiler is still initializing. Please wait a moment.");
             
@@ -752,7 +1047,7 @@ dekhao("Gunfol: ", a * b, "\\n");
                                 <span class="error-loc">Line ${e.line}, Col ${e.col}</span>
                             </div>
                             <div class="error-msg">${e.message || ''}</div>
-                            ${e.suggestion ? `<div class="error-sug">💡 ${e.suggestion}</div>` : ''}
+                            ${e.suggestion ? `<div class="error-sug"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-2px; margin-right:4px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>${e.suggestion}</div>` : ''}
                         `;
                         $('err').appendChild(card);
                     });
