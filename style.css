@@ -911,12 +911,6 @@ kbd {
     to { opacity: 1; transform: scale(1); }
 }
 
-/* ============================================================
-   Mobile FAB (Floating Action Button)
-   ============================================================ */
-#fab-run {
-    display: none;
-}
 
 /* ============================================================
    Drag-select prevention while resizing
@@ -1053,38 +1047,6 @@ body.resizing-panels * {
         display: none;
     }
 
-    /* Mobile FAB */
-    #fab-run {
-        display: flex;
-        position: fixed;
-        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-        right: calc(20px + env(safe-area-inset-right, 0px));
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #6366f1, #4f46e5);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        color: #fff;
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-        z-index: 50;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        cursor: pointer;
-        transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    #fab-run:hover,
-    #fab-run:active {
-        transform: scale(1.08);
-        box-shadow: 0 6px 28px rgba(99, 102, 241, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    #fab-run svg {
-        width: 22px;
-        height: 22px;
-        margin-left: 2px; /* optical center for play icon */
-    }
 
     /* Toolbar adjustments on mobile */
     .editor-toolbar {

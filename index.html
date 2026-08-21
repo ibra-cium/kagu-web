@@ -204,10 +204,6 @@
         </div>
     </div>
 
-    <!-- Mobile FAB (Floating Action Button for Run) -->
-    <button id="fab-run" title="Run Program" aria-label="Run Program">
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-    </button>
 
     <script src="bnlang.js"></script>
     <script>
@@ -664,11 +660,6 @@ dekhao("Gunfol: ", a * b, "\\n");
         $('btn-cheat').onclick = () => $('modal-cheat').classList.add('open');
         $('modal-close').onclick = () => $('modal-cheat').classList.remove('open');
         $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) $('modal-cheat').classList.remove('open'); };
-
-        // ============================================================
-        // FAB (Mobile Run Button)
-        // ============================================================
-        $('fab-run').onclick = () => $('run').click();
 
         // ============================================================
         // Resizable Panel Divider (Desktop only)
