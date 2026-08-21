@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BNLang v2 Web IDE</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,15 +66,25 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                     <span>Source Code (Bangalish)</span>
                 </span>
-                <button id="btn-clear-src" class="icon-btn" title="Clear Editor">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    <span>Clear</span>
-                </button>
+                <div class="editor-toolbar">
+                    <button id="btn-font-down" class="toolbar-btn" title="Decrease font size (A-)">A−</button>
+                    <button id="btn-font-up" class="toolbar-btn" title="Increase font size (A+)">A+</button>
+                    <div class="toolbar-sep"></div>
+                    <button id="btn-wrap" class="toolbar-btn" title="Toggle word wrap">↩ Wrap</button>
+                    <div class="toolbar-sep"></div>
+                    <button id="btn-clear-src" class="icon-btn" title="Clear Editor">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <span>Clear</span>
+                    </button>
+                </div>
             </div>
             <div class="panel-body">
-                <div class="editor-container">
+                <div class="editor-container" id="editor-container">
                     <div id="line-numbers" class="line-numbers">1</div>
-                    <textarea id="src" spellcheck="false" placeholder="// Write your BNLang code here..."></textarea>
+                    <div class="editor-scroll-wrapper">
+                        <pre id="highlight-layer" aria-hidden="true"><code></code></pre>
+                        <textarea id="src" spellcheck="false" placeholder="// Write your BNLang code here..."></textarea>
+                    </div>
                 </div>
                 <div class="stdin-container">
                     <div class="stdin-header">
@@ -84,6 +94,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Resizable Panel Divider -->
+        <div class="panel-divider" id="panel-divider"></div>
 
         <!-- Panel 2: Output & Inspector -->
         <div id="panel-output" class="panel">
@@ -106,10 +119,10 @@
                 </div>
             </div>
             <div class="panel-body">
-                <pre id="tab-out" class="code-view active" placeholder="Run output will appear here..."></pre>
-                <pre id="tab-c" class="code-view"></pre>
-                <pre id="tab-ast" class="code-view"></pre>
-                <pre id="tab-tokens" class="code-view"></pre>
+                <pre id="tab-out" class="code-view active" data-placeholder="▶ Run your code to see output here..."></pre>
+                <pre id="tab-c" class="code-view" data-placeholder="Generated C code will appear here after compilation..."></pre>
+                <pre id="tab-ast" class="code-view" data-placeholder="AST will appear here after compilation..."></pre>
+                <pre id="tab-tokens" class="code-view" data-placeholder="Tokens will appear here after compilation..."></pre>
             </div>
         </div>
     </main>
@@ -159,7 +172,7 @@
                         <h3>Operators</h3>
                         <code>x += 5; x -= 1; x *= 2; x /= 2; x %= 3;</code>
                         <code>i++; i--;</code>
-                        <code>ebong (&amp;&amp;), tasara (||), ulto (!)</code>
+                        <code>ebong (&&), tasara (||), ulto (!)</code>
                     </div>
                     <div class="sheet-card">
                         <h3>Control Flow</h3>
@@ -180,6 +193,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Mobile FAB (Floating Action Button for Run) -->
+    <button id="fab-run" title="Run Program" aria-label="Run Program">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    </button>
 
     <script src="bnlang.js"></script>
     <script>
@@ -341,9 +359,92 @@ dekhao("Gunfol: ", a * b, "\\n");
         const $ = id => document.getElementById(id);
         const srcEl = $('src');
         const lineNumsEl = $('line-numbers');
+        const highlightLayer = $('highlight-layer').querySelector('code');
+        const editorContainer = $('editor-container');
         let mod, cFn, cInFn;
 
+        // ============================================================
+        // Syntax Highlighter
+        // ============================================================
+        const TYPES = new Set(['shongkha', 'doshomik', 'lekha', 'pointer']);
+        const CONTROL = new Set(['jodi', 'nahole', 'jotokkhon', 'chalao', 'thamo', 'ferot', 'kaj']);
+        const LOGIC = new Set(['ebong', 'tasara', 'ulto']);
+        const IO = new Set(['dekhao', 'nao']);
+        const BUILTINS = new Set(['sorbochho', 'erthikana', 'erman', 'faka']);
+
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function classifyWord(word) {
+            if (TYPES.has(word)) return 'hl-type';
+            if (CONTROL.has(word)) return 'hl-control';
+            if (LOGIC.has(word)) return 'hl-logic';
+            if (IO.has(word)) return 'hl-io';
+            if (BUILTINS.has(word)) return 'hl-builtin';
+            return 'hl-ident';
+        }
+
+        // Master regex: covers every character so nothing is dropped.
+        // Order matters: comments first, then strings, numbers, identifiers,
+        // punctuation (WITHOUT double-quote), whitespace.
+        // IMPORTANT: " is excluded from punctuation so strings are always detected properly.
+        const MASTER_RE = /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"?)|(\b\d+(?:\.\d+)?\b)|([a-zA-Z_]\w*)|([^\s\w"]+)|([ \t\r\n]+)/g;
+
+        function highlightSource(source) {
+            let html = '';
+            let lastIndex = 0;
+            MASTER_RE.lastIndex = 0;
+            let match;
+
+            while ((match = MASTER_RE.exec(source)) !== null) {
+                // Safety: if the regex skipped characters, include them raw
+                if (match.index > lastIndex) {
+                    html += escapeHtml(source.slice(lastIndex, match.index));
+                }
+                lastIndex = match.index + match[0].length;
+
+                const raw = match[0];
+                const escaped = escapeHtml(raw);
+
+                if (match[1] !== undefined) {
+                    // Comment
+                    html += '<span class="hl-comment">' + escaped + '</span>';
+                } else if (match[2] !== undefined) {
+                    // String
+                    html += '<span class="hl-string">' + escaped + '</span>';
+                } else if (match[3] !== undefined) {
+                    // Number
+                    html += '<span class="hl-number">' + escaped + '</span>';
+                } else if (match[4] !== undefined) {
+                    // Identifier / keyword
+                    const cls = classifyWord(raw);
+                    html += '<span class="' + cls + '">' + escaped + '</span>';
+                } else if (match[5] !== undefined) {
+                    // Punctuation
+                    html += '<span class="hl-punct">' + escaped + '</span>';
+                } else {
+                    // Whitespace — pass through as-is
+                    html += raw;
+                }
+            }
+
+            // Anything remaining after the last match
+            if (lastIndex < source.length) {
+                html += escapeHtml(source.slice(lastIndex));
+            }
+
+            return html;
+        }
+
+        function updateHighlight() {
+            const src = srcEl.value;
+            highlightLayer.innerHTML = highlightSource(src);
+        }
+
+        // ============================================================
         // Line Numbers Updater
+        // ============================================================
         function updateLineNumbers() {
             const lines = srcEl.value.split('\n').length;
             let numHtml = '';
@@ -353,16 +454,74 @@ dekhao("Gunfol: ", a * b, "\\n");
             lineNumsEl.innerHTML = numHtml;
         }
 
-        srcEl.addEventListener('input', updateLineNumbers);
-        srcEl.addEventListener('scroll', () => {
-            lineNumsEl.scrollTop = srcEl.scrollTop;
+        // ============================================================
+        // Scroll Sync: textarea → highlight layer + line numbers
+        // ============================================================
+        function syncScroll() {
+            const scrollTop = srcEl.scrollTop;
+            const scrollLeft = srcEl.scrollLeft;
+            $('highlight-layer').scrollTop = scrollTop;
+            $('highlight-layer').scrollLeft = scrollLeft;
+            lineNumsEl.scrollTop = scrollTop;
+        }
+
+        srcEl.addEventListener('input', () => {
+            updateLineNumbers();
+            updateHighlight();
+            syncScroll();
         });
+
+        srcEl.addEventListener('scroll', syncScroll);
 
         // Set initial example
         srcEl.value = exs.hello;
         updateLineNumbers();
+        updateHighlight();
 
+        // ============================================================
+        // Editor Toolbar: Font Size A-/A+
+        // ============================================================
+        let currentFontSize = 14; // ~0.88rem ≈ 14px
+
+        function applyFontSize() {
+            const px = currentFontSize + 'px';
+            srcEl.style.fontSize = px;
+            $('highlight-layer').style.fontSize = px;
+            lineNumsEl.style.fontSize = px;
+        }
+
+        $('btn-font-down').onclick = () => {
+            if (currentFontSize > 11) {
+                currentFontSize--;
+                applyFontSize();
+                syncScroll();
+            }
+        };
+
+        $('btn-font-up').onclick = () => {
+            if (currentFontSize < 22) {
+                currentFontSize++;
+                applyFontSize();
+                syncScroll();
+            }
+        };
+
+        // ============================================================
+        // Editor Toolbar: Word Wrap Toggle
+        // ============================================================
+        let wrapEnabled = false;
+
+        $('btn-wrap').onclick = () => {
+            wrapEnabled = !wrapEnabled;
+            $('btn-wrap').classList.toggle('active', wrapEnabled);
+            editorContainer.classList.toggle('wrap-on', wrapEnabled);
+            lineNumsEl.classList.toggle('hidden', wrapEnabled);
+            syncScroll();
+        };
+
+        // ============================================================
         // Mobile Segmented Switcher
+        // ============================================================
         const panelEditor = $('panel-editor');
         const panelOutput = $('panel-output');
         const segEditor = $('seg-editor');
@@ -382,11 +541,14 @@ dekhao("Gunfol: ", a * b, "\\n");
             panelEditor.classList.remove('mobile-active');
         };
 
+        // ============================================================
         // Example dropdown selection
+        // ============================================================
         $('sel').onchange = e => {
             if (e.target.value && exs[e.target.value]) {
                 srcEl.value = exs[e.target.value];
                 updateLineNumbers();
+                updateHighlight();
                 if (e.target.value === 'input') {
                     $('in').value = '12 8';
                 }
@@ -397,7 +559,9 @@ dekhao("Gunfol: ", a * b, "\\n");
             }
         };
 
+        // ============================================================
         // Tab indentation support & keyboard shortcut
+        // ============================================================
         srcEl.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 e.preventDefault();
@@ -406,13 +570,25 @@ dekhao("Gunfol: ", a * b, "\\n");
                 this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
                 this.selectionStart = this.selectionEnd = start + 4;
                 updateLineNumbers();
+                updateHighlight();
             } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 $('run').click();
             }
         });
 
+        // ============================================================
+        // Esc key closes cheatsheet modal
+        // ============================================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                $('modal-cheat').classList.remove('open');
+            }
+        });
+
+        // ============================================================
         // Status pill helper
+        // ============================================================
         function setStatus(state, msg) {
             const dot = $('status-dot');
             const text = $('status-text');
@@ -436,7 +612,9 @@ dekhao("Gunfol: ", a * b, "\\n");
             });
         }
 
+        // ============================================================
         // Tab Switching in Output Inspector
+        // ============================================================
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.onclick = () => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -446,7 +624,9 @@ dekhao("Gunfol: ", a * b, "\\n");
             };
         });
 
+        // ============================================================
         // Copy button
+        // ============================================================
         $('btn-copy').onclick = () => {
             const activeTab = document.querySelector('.code-view.active');
             if (activeTab && activeTab.textContent) {
@@ -458,19 +638,79 @@ dekhao("Gunfol: ", a * b, "\\n");
             }
         };
 
+        // ============================================================
         // Clear button
+        // ============================================================
         $('btn-clear-src').onclick = () => {
             srcEl.value = '';
             updateLineNumbers();
+            updateHighlight();
             srcEl.focus();
         };
 
+        // ============================================================
         // Modal Cheatsheet
+        // ============================================================
         $('btn-cheat').onclick = () => $('modal-cheat').classList.add('open');
         $('modal-close').onclick = () => $('modal-cheat').classList.remove('open');
         $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) $('modal-cheat').classList.remove('open'); };
 
+        // ============================================================
+        // FAB (Mobile Run Button)
+        // ============================================================
+        $('fab-run').onclick = () => $('run').click();
+
+        // ============================================================
+        // Resizable Panel Divider (Desktop only)
+        // ============================================================
+        (function initDivider() {
+            const divider = $('panel-divider');
+            const mainEl = document.querySelector('main');
+            let isDragging = false;
+
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+
+            divider.addEventListener('pointerdown', (e) => {
+                if (isMobile()) return;
+                isDragging = true;
+                divider.classList.add('dragging');
+                document.body.classList.add('resizing-panels');
+                divider.setPointerCapture(e.pointerId);
+                e.preventDefault();
+            });
+
+            document.addEventListener('pointermove', (e) => {
+                if (!isDragging) return;
+                const mainRect = mainEl.getBoundingClientRect();
+                const mainWidth = mainRect.width;
+                const relX = e.clientX - mainRect.left;
+                let ratio = relX / mainWidth;
+
+                // Clamp ratio between 0.22 and 0.78
+                ratio = Math.max(0.22, Math.min(0.78, ratio));
+
+                panelEditor.style.flexGrow = ratio;
+                panelEditor.style.flexBasis = '0';
+                panelOutput.style.flexGrow = 1 - ratio;
+                panelOutput.style.flexBasis = '0';
+            });
+
+            function stopDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                divider.classList.remove('dragging');
+                document.body.classList.remove('resizing-panels');
+            }
+
+            document.addEventListener('pointerup', stopDrag);
+            document.addEventListener('pointercancel', stopDrag);
+        })();
+
+        // ============================================================
         // Run / Compile
+        // ============================================================
         $('run').onclick = () => {
             if (!mod || (!cFn && !cInFn)) return alert("Compiler is still initializing. Please wait a moment.");
             
