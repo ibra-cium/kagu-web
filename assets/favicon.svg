@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background Container -->
+  <rect width="512" height="512" rx="112" fill="#0F172A" />
+  
+  <!-- Browser Frame Tab / Outline -->
+  <path d="M 120 120 L 220 120 L 250 160 L 392 160 C 414 160 432 178 432 200 L 432 372 C 432 394 414 412 392 412 L 120 412 C 98 412 80 394 80 372 L 80 160 C 80 138 98 120 120 120 Z" 
+        fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linejoin="round" />
+  
+  <!-- Geometric 'K' -->
+  <path d="M 144 195 L 144 377" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" />
+  <path d="M 285 195 L 175 286 L 285 377" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linejoin="round" stroke-linecap="round" />
+  
+  <!-- Play Accent -->
+  <polygon points="325,260 375,286 325,312" fill="#F59E0B" />
+</svg>
