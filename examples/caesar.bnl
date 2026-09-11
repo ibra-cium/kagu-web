@@ -1,0 +1,40 @@
+// Caesar cipher over an okkhor array
+shongkha n = 0;
+shongkha shift = 0;
+
+dekhao("Koyti okkhor? \n");
+nao(n);
+
+dekhao("Shift koto? \n");
+nao(shift);
+
+okkhor buf sorbochho(50);
+dekhao("Okkhor gulo dao: \n");
+chalao (shongkha i = 0; i < n; i++) {
+    nao(buf[i]);
+}
+
+dekhao("Aashol: ");
+chalao (shongkha i = 0; i < n; i++) {
+    dekhao(buf[i]);
+}
+dekhao("\n");
+
+chalao (shongkha i = 0; i < n; i++) {
+    okkhor c = buf[i];
+    jodi (c >= 'a' ebong c <= 'z') {
+        shongkha offset = c - 'a';
+        shongkha shifted = (offset + shift) % 26;
+        buf[i] = 'a' + shifted;
+    } nahole jodi (c >= 'A' ebong c <= 'Z') {
+        shongkha offset = c - 'A';
+        shongkha shifted = (offset + shift) % 26;
+        buf[i] = 'A' + shifted;
+    }
+}
+
+dekhao("Cipher: ");
+chalao (shongkha i = 0; i < n; i++) {
+    dekhao(buf[i]);
+}
+dekhao("\n");

@@ -1,27 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" height="100%">
   <defs>
     <style>
-      .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif; font-weight: 700; font-size: 56px; }
-      .text-kagu { fill: #FFFFFF; }
-      .text-web { fill: #F59E0B; font-weight: 500; }
+      .text-title { font-family: 'Anek Bangla', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 56px; }
+      .text-kagu { fill: #EEF2E6; }
+      .text-web { fill: #F5B731; font-weight: 600; }
     </style>
   </defs>
 
   <!-- Logo Icon -->
   <g transform="translate(10, 15)">
-    <!-- Browser Window Shape -->
+    <!-- Browser Window Shape with Rickshaw Surface Fill & Contrast Border -->
     <path d="M 30 15 L 75 15 L 90 32 L 145 32 C 153 32 160 39 160 47 L 160 115 C 160 123 153 130 145 130 L 30 130 C 22 130 15 123 15 115 L 15 30 C 15 22 22 15 30 15 Z" 
-          fill="#0F172A" />
+          fill="#1C2A24" stroke="#26362F" stroke-width="3" />
     
     <!-- Cutout Geometric 'K' -->
-    <path d="M 40 42 L 40 103" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" />
-    <path d="M 98 42 L 53 72.5 L 98 103" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round" stroke-linecap="round" />
+    <path d="M 40 42 L 40 103" stroke="#EEF2E6" stroke-width="12" stroke-linecap="round" />
+    <path d="M 98 42 L 53 72.5 L 98 103" fill="none" stroke="#EEF2E6" stroke-width="12" stroke-linejoin="round" stroke-linecap="round" />
     
-    <!-- Warm Orange Play Accent -->
-    <polygon points="112,62 132,72.5 112,83" fill="#F59E0B" />
+    <!-- Holud Play Accent -->
+    <polygon points="112,62 132,72.5 112,83" fill="#F5B731" />
   </g>
 
   <!-- Wordmark -->
-  <!-- (Use fill="#FFFFFF" on .text-kagu for dark mode navigation bars) -->
   <text x="195" y="98" class="text-title text-kagu">Kagu <tspan class="text-web">Web</tspan></text>
 </svg>

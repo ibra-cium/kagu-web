@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head> 
 <body>
     <!-- Top Header -->
@@ -17,8 +17,355 @@
             <a href="#" class="brand-logo" aria-label="Kagu Web Home">
                 <img src="assets/logo.svg" alt="Kagu Web" class="brand-logo-img" height="36">
             </a>
-            <span class="badge-version">v2.0</span>
         </div>
+        <!-- Full-Width, Full-Height Animated Dhaka Cityscape (ঢাকা শহর ও মেট্রোরেল লুপ) -->
+        <div class="dhaka-city-bar" id="dhaka-city-bar" role="img" aria-label="Dhaka City Scene with Metro Rail and Traffic Loop">
+            <svg class="city-svg" viewBox="0 0 1000 56" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Dhaka Night Sky Gradient -->
+                    <linearGradient id="dhakaSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#070e17" />
+                        <stop offset="50%" stop-color="#0f1926" />
+                        <stop offset="100%" stop-color="#14212c" />
+                    </linearGradient>
+
+                    <!-- Metro Headlight Cones -->
+                    <linearGradient id="metroEastBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#f5b731" stop-opacity="0" />
+                        <stop offset="100%" stop-color="#f5b731" stop-opacity="0.85" />
+                    </linearGradient>
+
+                    <linearGradient id="metroWestBeam" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#f5b731" stop-opacity="0" />
+                        <stop offset="100%" stop-color="#f5b731" stop-opacity="0.85" />
+                    </linearGradient>
+
+                    <!-- CNG Headlight Cones -->
+                    <linearGradient id="cngEastBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#72c6f2" stop-opacity="0" />
+                        <stop offset="100%" stop-color="#72c6f2" stop-opacity="0.8" />
+                    </linearGradient>
+                    <linearGradient id="cngWestBeam" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#72c6f2" stop-opacity="0" />
+                        <stop offset="100%" stop-color="#72c6f2" stop-opacity="0.8" />
+                    </linearGradient>
+
+                    <!-- Soft Amber Lamp Glow -->
+                    <filter id="streetLampGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="1.8" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- 1. Background Night Sky -->
+                <rect x="0" y="0" width="1000" height="56" fill="url(#dhakaSkyGrad)" />
+
+                <!-- Night Sky Stars -->
+                <g class="city-stars">
+                    <circle cx="35" cy="5" r="0.7" fill="#eef2e6" opacity="0.6" class="star star-1" />
+                    <circle cx="110" cy="7" r="0.8" fill="#eef2e6" opacity="0.7" class="star star-2" />
+                    <circle cx="280" cy="4" r="0.6" fill="#eef2e6" opacity="0.5" class="star star-3" />
+                    <circle cx="380" cy="8" r="0.8" fill="#eef2e6" opacity="0.7" class="star star-1" />
+                    <circle cx="530" cy="6" r="0.7" fill="#eef2e6" opacity="0.6" class="star star-2" />
+                    <circle cx="670" cy="5" r="0.9" fill="#eef2e6" opacity="0.8" class="star star-1" />
+                    <circle cx="890" cy="7" r="0.6" fill="#eef2e6" opacity="0.5" class="star star-3" />
+                    <circle cx="960" cy="4" r="0.8" fill="#eef2e6" opacity="0.7" class="star star-2" />
+                </g>
+
+                <!-- 2. Dhaka Architectural Skyline (Landmarks & Towers) -->
+                <g class="city-skyline">
+                    <!-- Distant high-rise silhouettes -->
+                    <rect x="15" y="13" width="28" height="22" rx="1.5" fill="#131d2a" />
+                    <rect x="50" y="8" width="32" height="27" rx="1.5" fill="#101824" />
+                    
+                    <!-- Louis Kahn's Jatiya Sangsad Bhaban (জাতীয় সংসদ ভবন) -->
+                    <g class="sangsad-bhaban" transform="translate(130, 11)">
+                        <path d="M 0,6 L 12,1 L 52,1 L 64,6 L 64,24 L 0,24 Z" fill="#1d2b24" stroke="#2a3d34" stroke-width="0.8" />
+                        <!-- Kahn Iconic Cutouts -->
+                        <circle cx="32" cy="9.5" r="3.5" fill="#080f17" />
+                        <polygon points="12,11 18,19 6,19" fill="#080f17" />
+                        <polygon points="52,11 58,19 46,19" fill="#080f17" />
+                    </g>
+
+                    <!-- City Towers Middle Cluster -->
+                    <rect x="225" y="10" width="30" height="25" rx="1.5" fill="#141f2d" />
+                    
+                    <!-- Central Shahid Minar (শহীদ মিনার) -->
+                    <g class="shahid-minar" transform="translate(290, 12)">
+                        <!-- Red Sun Disc -->
+                        <circle cx="9" cy="5.5" r="5" fill="#ff4d4d" opacity="0.9" />
+                        <!-- Central Marble Column -->
+                        <rect x="7.8" y="0" width="2.5" height="23" fill="#eef2e6" rx="0.5" />
+                        <!-- Left and Right Flanking Columns -->
+                        <rect x="2" y="5" width="2" height="18" fill="#eef2e6" rx="0.4" transform="rotate(-9 2 23)" />
+                        <rect x="14" y="5" width="2" height="18" fill="#eef2e6" rx="0.4" transform="rotate(9 14 23)" />
+                    </g>
+
+                    <!-- Downtown Towers & Corporate Buildings -->
+                    <rect x="365" y="6" width="34" height="29" rx="1.5" fill="#111c28" />
+                    <rect x="415" y="11" width="32" height="24" rx="1.5" fill="#152230" />
+                    <rect x="460" y="8" width="36" height="27" rx="1.5" fill="#121e2a" />
+                    <rect x="520" y="12" width="30" height="23" rx="1.5" fill="#162432" />
+                    <rect x="575" y="5" width="38" height="30" rx="1.5" fill="#0f1924" />
+                    <rect x="635" y="9" width="32" height="26" rx="1.5" fill="#13202c" />
+
+                    <!-- Telecom Tower & Aircraft Beacon -->
+                    <line x1="680" y1="2" x2="680" y2="12" stroke="#485c6c" stroke-width="1.1" />
+                    <line x1="675" y1="7" x2="685" y2="7" stroke="#485c6c" stroke-width="0.8" />
+                    <circle cx="680" cy="2" r="1.6" fill="#ff4d4d" class="antenna-beacon" />
+
+                    <!-- Towers on East End -->
+                    <rect x="915" y="8" width="32" height="27" rx="1.5" fill="#131e2b" />
+                    <rect x="955" y="12" width="35" height="23" rx="1.5" fill="#162331" />
+
+                    <!-- Lit Window Grids in Skyscrapers -->
+                    <g class="tower-windows">
+                        <!-- Tower 1 -->
+                        <rect x="22" y="16" width="2.2" height="2.2" fill="#f5b731" opacity="0.85" />
+                        <rect x="28" y="16" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <rect x="34" y="21" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <!-- Tower 2 -->
+                        <rect x="58" y="12" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <rect x="66" y="12" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <rect x="58" y="18" width="2.2" height="2.2" fill="#ff85bf" opacity="0.8" />
+                        <rect x="66" y="23" width="2.2" height="2.2" fill="#f5b731" opacity="0.85" />
+                        <!-- Tower 3 -->
+                        <rect x="232" y="14" width="2.2" height="2.2" fill="#72c6f2" opacity="0.85" />
+                        <rect x="240" y="19" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <!-- Tower 4 (Downtown) -->
+                        <rect x="373" y="10" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <rect x="382" y="10" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <rect x="390" y="15" width="2.2" height="2.2" fill="#ff85bf" opacity="0.85" />
+                        <rect x="373" y="20" width="2.2" height="2.2" fill="#9bdd74" opacity="0.75" />
+                        <rect x="382" y="25" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <!-- Tower 5 -->
+                        <rect x="424" y="15" width="2.2" height="2.2" fill="#f5b731" opacity="0.85" />
+                        <rect x="434" y="15" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <rect x="424" y="21" width="2.2" height="2.2" fill="#ff85bf" opacity="0.8" />
+                        <!-- Tower 6 -->
+                        <rect x="470" y="12" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <rect x="480" y="17" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <rect x="470" y="22" width="2.2" height="2.2" fill="#9bdd74" opacity="0.75" />
+                        <!-- Tower 7 (Tall) -->
+                        <rect x="585" y="9" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <rect x="595" y="9" width="2.2" height="2.2" fill="#72c6f2" opacity="0.85" />
+                        <rect x="603" y="14" width="2.2" height="2.2" fill="#ff85bf" opacity="0.8" />
+                        <rect x="585" y="19" width="2.2" height="2.2" fill="#f5b731" opacity="0.85" />
+                        <rect x="595" y="24" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                        <!-- Tower 8 -->
+                        <rect x="643" y="13" width="2.2" height="2.2" fill="#f5b731" opacity="0.85" />
+                        <rect x="653" y="18" width="2.2" height="2.2" fill="#9bdd74" opacity="0.8" />
+                        <!-- Tower 9 -->
+                        <rect x="925" y="12" width="2.2" height="2.2" fill="#f5b731" opacity="0.9" />
+                        <rect x="935" y="17" width="2.2" height="2.2" fill="#72c6f2" opacity="0.8" />
+                    </g>
+                </g>
+
+                <!-- 3. Elevated Metro Rail Viaduct & Station Structure -->
+                <!-- Viaduct Concrete Track running at y=20 across the entire city -->
+                <g class="metro-viaduct">
+                    <rect x="0" y="20" width="1000" height="2.4" fill="#2c3e34" stroke="#3b5246" stroke-width="0.6" />
+                    <!-- Concrete Support Pillars -->
+                    <rect x="50" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="170" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="290" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="410" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="530" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="650" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="760" y="22.4" width="5" height="12.6" fill="#202e26" />
+                    <rect x="880" y="22.4" width="5" height="12.6" fill="#202e26" />
+                </g>
+
+                <!-- Modern Dhaka Metro Station (মেট্রোরেল স্টেশন) at x=740 to 860 -->
+                <g class="metro-station" transform="translate(730, 0)">
+                    <!-- Station Roof Canopy with Rickshaw Yellow Accent Border -->
+                    <path d="M 0,16 Q 60,8 120,16 L 115,19 L 5,19 Z" fill="#22362b" stroke="#f5b731" stroke-width="0.8" />
+                    
+                    <!-- Illuminated Metro Station Sign -->
+                    <rect x="25" y="11" width="70" height="5.5" rx="1.5" fill="#0d1b14" stroke="#f5b731" stroke-width="0.7" />
+                    <text x="60" y="15" font-size="3.8" fill="#f5b731" font-family="'Anek Bangla', system-ui, sans-serif" font-weight="700" text-anchor="middle" letter-spacing="0.5">মেট্রোরেল স্টেশন</text>
+                    
+                    <!-- Station Platform & Screen Doors -->
+                    <rect x="2" y="19" width="116" height="3" fill="#32473c" />
+                    <!-- Platform Lighting & Passengers -->
+                    <circle cx="20" cy="18" r="1.5" fill="#eef2e6" />
+                    <rect x="18.8" y="19.5" width="2.4" height="2.5" fill="#101a14" />
+                    <circle cx="45" cy="18" r="1.5" fill="#eef2e6" />
+                    <circle cx="70" cy="18" r="1.5" fill="#eef2e6" />
+                    <circle cx="95" cy="18" r="1.5" fill="#eef2e6" />
+                    
+                    <!-- Platform Accent LEDs -->
+                    <line x1="2" y1="22" x2="118" y2="22" stroke="#f5b731" stroke-width="0.5" stroke-opacity="0.8" />
+                </g>
+
+                <!-- 4. The Reversing Loop Dhaka Metro Train (MRT Line 6) -->
+                <g class="metro-train-track">
+                    <g class="metro-train-loop" id="metro-train-loop">
+                        <!-- Eastbound Headlight Cone (Bright when train moves east) -->
+                        <polygon class="headlight-east" points="0,17.5 28,13 28,22" fill="url(#metroEastBeam)" />
+                        <!-- Westbound Headlight Cone (Bright when train moves west) -->
+                        <polygon class="headlight-west" points="-108,17.5 -136,13 -136,22" fill="url(#metroWestBeam)" />
+
+                        <!-- Car 1 (East Lead Cab - Aerodynamic Nose) -->
+                        <path d="M 0,17.5 C -1.5,16 -4,15 -8,15 L -36,15 L -36,20 L -1,20 Z" fill="#eef2e6" stroke="#006a4e" stroke-width="0.6" />
+                        <!-- Green Base & Red Livery Line -->
+                        <rect x="-36" y="17.8" width="34" height="2.2" fill="#006a4e" />
+                        <line x1="-36" y1="17.8" x2="-2" y2="17.8" stroke="#f42a41" stroke-width="0.6" />
+                        <!-- Driver Cab Window & Passenger Windows -->
+                        <polygon points="-1,17 -5,16 -9,16 -9,17" fill="#081018" />
+                        <rect x="-18" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <rect x="-28" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <!-- East Headlight Bulb -->
+                        <circle cx="-1" cy="17.5" r="0.9" fill="#ffffff" />
+
+                        <!-- Car 2 (Middle Passenger Coach) -->
+                        <rect x="-38" y="15.6" width="2" height="4" fill="#202c25" />
+                        <rect x="-70" y="15" width="32" height="5" rx="0.6" fill="#eef2e6" stroke="#006a4e" stroke-width="0.6" />
+                        <rect x="-70" y="17.8" width="32" height="2.2" fill="#006a4e" />
+                        <line x1="-70" y1="17.8" x2="-38" y2="17.8" stroke="#f42a41" stroke-width="0.6" />
+                        <rect x="-48" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <rect x="-58" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <rect x="-67" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+
+                        <!-- Car 3 (West Cab - Aerodynamic Nose for Reversal) -->
+                        <rect x="-72" y="15.6" width="2" height="4" fill="#202c25" />
+                        <path d="M -108,17.5 C -106.5,16 -104,15 -100,15 L -72,15 L -72,20 L -107,20 Z" fill="#eef2e6" stroke="#006a4e" stroke-width="0.6" />
+                        <rect x="-106" y="17.8" width="34" height="2.2" fill="#006a4e" />
+                        <line x1="-106" y1="17.8" x2="-72" y2="17.8" stroke="#f42a41" stroke-width="0.6" />
+                        <polygon points="-107,17 -103,16 -99,16 -99,17" fill="#081018" />
+                        <rect x="-82" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <rect x="-92" y="15.8" width="6" height="1.6" rx="0.4" fill="#f5b731" />
+                        <!-- West Headlight Bulb -->
+                        <circle cx="-107" cy="17.5" r="0.9" fill="#ffffff" />
+                    </g>
+                </g>
+
+                <!-- 5. Street Level & Highway Boulevard (y=34 to 56) -->
+                <rect x="0" y="34" width="1000" height="22" fill="#111713" />
+                <!-- Center Dashed Yellow Lane Divider -->
+                <line x1="0" y1="44" x2="1000" y2="44" stroke="#f5b731" stroke-opacity="0.3" stroke-dasharray="10 12" stroke-width="1.2" />
+
+                <!-- Gooseneck Street Lamps casting light onto road -->
+                <g class="city-streetlamps">
+                    <g transform="translate(100, 34)">
+                        <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                    </g>
+                    <g transform="translate(280, 34)">
+                        <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                    </g>
+                    <g transform="translate(480, 34)">
+                        <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                    </g>
+                    <g transform="translate(680, 34)">
+                        <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                    </g>
+                    <g transform="translate(880, 34)">
+                        <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                    </g>
+                </g>
+
+                <!-- ============================================================ -->
+                <!-- TWO-WAY TRAFFIC VEHICLES (রিকশা ও সিএনজি)                    -->
+                <!-- ============================================================ -->
+
+                <!-- UPPER LANE: WESTBOUND VEHICLES (Moving Right to Left) -->
+                <!-- Westbound Green CNG 1 -->
+                <g class="traffic-west-cng">
+                    <g transform="translate(0, 35)">
+                        <polygon points="0,5.5 -16,2.5 -16,8.5" fill="url(#cngWestBeam)" />
+                        <path d="M 0,5 L -3,2 L -14,2 L -16,5 L -16,8.5 L 0,8.5 Z" fill="#1b8b54" stroke="#146b40" stroke-width="0.6" />
+                        <path d="M -3,2 L -14,2 L -13,0 L -4,0 Z" fill="#1c2520" />
+                        <rect x="-10" y="3" width="5" height="2.5" fill="#f5b731" opacity="0.9" />
+                        <circle cx="-0.8" cy="5.5" r="0.9" fill="#ffffff" />
+                        <circle cx="-3" cy="9" r="1.8" fill="#0b110e" stroke="#60766a" stroke-width="0.6" />
+                        <circle cx="-13" cy="9" r="1.8" fill="#0b110e" stroke="#60766a" stroke-width="0.6" />
+                    </g>
+                </g>
+
+                <!-- Westbound Dhaka Rickshaw 1 -->
+                <g class="traffic-west-rickshaw">
+                    <g transform="translate(0, 34)">
+                        <!-- Rickshaw Hood Facing Left -->
+                        <path d="M 14,5 C 17,-1 7,-3 3,0 L 3,5 Z" fill="#ff85bf" stroke="#f5b731" stroke-width="0.7" />
+                        <path d="M 13,3 C 11,-1 6,-2 3,1" stroke="#f5b731" stroke-width="0.8" fill="none" />
+                        <rect x="14" y="3.5" width="2.4" height="3" fill="#72c6f2" rx="0.3" />
+                        <!-- Frame -->
+                        <path d="M 10,7 L 2,3 L -4,3 L -7,8" stroke="#f5b731" stroke-width="0.9" fill="none" stroke-linecap="round" />
+                        <!-- Rickshaw Puller facing Left -->
+                        <circle cx="-3" cy="-2" r="1.8" fill="#eef2e6" />
+                        <path d="M -3,0 L 0,4 L 2,8" stroke="#eef2e6" stroke-width="1" fill="none" stroke-linecap="round" />
+                        <line x1="-3" y1="2" x2="-6" y2="3.5" stroke="#eef2e6" stroke-width="0.9" stroke-linecap="round" />
+                        <!-- Wheels -->
+                        <g transform="translate(10, 7)" class="rickshaw-wheel-west">
+                            <circle cx="0" cy="0" r="4.2" fill="#131915" stroke="#eef2e6" stroke-width="0.8" />
+                            <line x1="-3.8" y1="0" x2="3.8" y2="0" stroke="#f5b731" stroke-width="0.6" />
+                            <line x1="0" y1="-3.8" x2="0" y2="3.8" stroke="#f5b731" stroke-width="0.6" />
+                            <circle cx="0" cy="0" r="0.9" fill="#f5b731" />
+                        </g>
+                        <g transform="translate(-7, 8)" class="rickshaw-wheel-west">
+                            <circle cx="0" cy="0" r="3.2" fill="#131915" stroke="#eef2e6" stroke-width="0.7" />
+                            <line x1="-2.8" y1="0" x2="2.8" y2="0" stroke="#f5b731" stroke-width="0.6" />
+                            <line x1="0" y1="-2.8" x2="0" y2="2.8" stroke="#f5b731" stroke-width="0.6" />
+                            <circle cx="0" cy="0" r="0.8" fill="#f5b731" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- LOWER LANE: EASTBOUND VEHICLES (Moving Left to Right) -->
+                <!-- Eastbound Colorful Dhaka Rickshaw 2 -->
+                <g class="traffic-east-rickshaw">
+                    <g transform="translate(0, 43)">
+                        <!-- Rickshaw Hood Facing Right -->
+                        <path d="M -16,6 C -19,-1 -8,-3 -3,0 L -3,6 Z" fill="#ff85bf" stroke="#f5b731" stroke-width="0.8" />
+                        <path d="M -15,4 C -12,-1 -7,-2 -3,1" stroke="#f5b731" stroke-width="0.9" fill="none" />
+                        <rect x="-17.5" y="4.5" width="2.8" height="3.5" fill="#72c6f2" rx="0.4" />
+                        <!-- Chassis -->
+                        <path d="M -12,8 L -2,4 L 5,4 L 9,9" stroke="#f5b731" stroke-width="1.1" fill="none" stroke-linecap="round" />
+                        <circle cx="-2" cy="6.5" r="1.3" fill="#36493f" />
+                        <!-- Rickshaw Puller facing Right -->
+                        <circle cx="4" cy="-2" r="2.2" fill="#eef2e6" />
+                        <path d="M 4,0 L 0,5 L -3,9" stroke="#eef2e6" stroke-width="1.2" fill="none" stroke-linecap="round" />
+                        <line x1="4" y1="2" x2="8" y2="3.8" stroke="#eef2e6" stroke-width="1.1" stroke-linecap="round" />
+                        <line x1="8" y1="3.5" x2="8" y2="7.5" stroke="#f5b731" stroke-width="1.1" stroke-linecap="round" />
+                        <!-- Wheels -->
+                        <g transform="translate(-12, 8)" class="rickshaw-wheel-east">
+                            <circle cx="0" cy="0" r="5" fill="#131915" stroke="#eef2e6" stroke-width="0.9" />
+                            <line x1="-4.5" y1="0" x2="4.5" y2="0" stroke="#f5b731" stroke-width="0.7" />
+                            <line x1="0" y1="-4.5" x2="0" y2="4.5" stroke="#f5b731" stroke-width="0.7" />
+                            <circle cx="0" cy="0" r="1.1" fill="#f5b731" />
+                        </g>
+                        <g transform="translate(9, 9)" class="rickshaw-wheel-east">
+                            <circle cx="0" cy="0" r="3.8" fill="#131915" stroke="#eef2e6" stroke-width="0.8" />
+                            <line x1="-3.4" y1="0" x2="3.4" y2="0" stroke="#f5b731" stroke-width="0.7" />
+                            <line x1="0" y1="-3.4" x2="0" y2="3.4" stroke="#f5b731" stroke-width="0.7" />
+                            <circle cx="0" cy="0" r="0.9" fill="#f5b731" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- Eastbound Green CNG 2 -->
+                <g class="traffic-east-cng">
+                    <g transform="translate(0, 44)">
+                        <polygon points="0,5.5 18,2.5 18,8.5" fill="url(#cngEastBeam)" />
+                        <path d="M 0,5 L -4,2 L -16,2 L -18,5 L -18,9 L 0,9 Z" fill="#1b8b54" stroke="#146b40" stroke-width="0.7" />
+                        <path d="M -4,2 L -16,2 L -15,-0.5 L -5,-0.5 Z" fill="#1c2520" />
+                        <rect x="-11" y="3" width="6" height="3" fill="#f5b731" opacity="0.9" />
+                        <circle cx="-0.8" cy="5.5" r="1" fill="#ffffff" />
+                        <circle cx="-3.5" cy="9.5" r="2" fill="#0b110e" stroke="#60766a" stroke-width="0.7" />
+                        <circle cx="-14.5" cy="9.5" r="2" fill="#0b110e" stroke="#60766a" stroke-width="0.7" />
+                    </g>
+                </g>
+            </svg>
+        </div>
+
         <div class="controls">
             <select id="sel" aria-label="Load Example">
                 <option value="">📂 Load Example...</option>
@@ -27,19 +374,31 @@
                     <option value="compound">02. Compound Ops & Loops</option>
                     <option value="logic">03. Logic (ebong, tasara, ulto)</option>
                 </optgroup>
-                <optgroup label="Arrays & Sorting">
+                <optgroup label="Arrays & Characters">
                     <option value="array_bubble">04. Arrays & Bubble Sort</option>
                     <option value="array_func">05. Arrays in Functions</option>
+                    <option value="caesar">06. Caesar Cipher (okkhor)</option>
                 </optgroup>
                 <optgroup label="Pointers & References">
-                    <option value="pointer_swap">06. Pointer Swap (bodlao)</option>
-                    <option value="pointer_minmax">07. Min/Max Finder (boro_choto)</option>
+                    <option value="pointer_swap">07. Pointer Swap (bodlao)</option>
+                    <option value="pointer_minmax">08. Min/Max Finder (boro_choto)</option>
                 </optgroup>
                 <optgroup label="Functions & I/O">
-                    <option value="recursion">08. Recursion (Factorial)</option>
-                    <option value="input">09. Interactive Input (nao)</option>
+                    <option value="recursion">09. Recursion (Factorial)</option>
+                    <option value="input">10. Interactive Input (nao)</option>
+                    <option value="average">11. Marks Average (.ghor)</option>
                 </optgroup>
             </select>
+            <a href="https://game-hub-azure-iota.vercel.app/" target="_blank" rel="noopener noreferrer" id="btn-games" class="btn-game" title="Play Games">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="6" y1="12" x2="10" y2="12"></line>
+                    <line x1="8" y1="10" x2="8" y2="14"></line>
+                    <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                    <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                    <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                </svg>
+                <span>Play Games</span>
+            </a>
             <button id="btn-cheat" class="btn-secondary" title="View Language Cheatsheet">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                 <span>Syntax</span>
@@ -87,6 +446,26 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Mobile Symbol Helper Bar -->
+            <div class="mobile-symbols-bar" id="mobile-symbols-bar" aria-label="Symbol Quick Bar">
+                <button type="button" class="sym-btn" data-insert="{">{</button>
+                <button type="button" class="sym-btn" data-insert="}">}</button>
+                <button type="button" class="sym-btn" data-insert="(">(</button>
+                <button type="button" class="sym-btn" data-insert=")">)</button>
+                <button type="button" class="sym-btn" data-insert=";">;</button>
+                <button type="button" class="sym-btn" data-insert='"'>"</button>
+                <button type="button" class="sym-btn" data-insert="'">'</button>
+                <button type="button" class="sym-btn" data-insert="=">=</button>
+                <button type="button" class="sym-btn" data-insert="+">+</button>
+                <button type="button" class="sym-btn" data-insert="-">-</button>
+                <button type="button" class="sym-btn" data-insert="<">&lt;</button>
+                <button type="button" class="sym-btn" data-insert=">">&gt;</button>
+                <button type="button" class="sym-btn" data-insert="[">[</button>
+                <button type="button" class="sym-btn" data-insert="]">]</button>
+                <button type="button" class="sym-btn" data-insert="    ">Tab</button>
+            </div>
+
             <div class="panel-body">
                 <div class="editor-container" id="editor-container">
                     <div id="line-numbers" class="line-numbers">1</div>
@@ -95,12 +474,6 @@
                         <textarea id="src" spellcheck="false" placeholder="// Write your BNLang code here..."></textarea>
                         <div id="autocomplete-dropdown" class="autocomplete-dropdown" role="listbox" aria-label="Completions"></div>
                     </div>
-                </div>
-                <div class="stdin-container">
-                    <div class="stdin-header">
-                        <label class="stdin-label" for="in">Input (stdin for nao):</label>
-                    </div>
-                    <input type="text" id="in" placeholder="Enter input values (e.g. 10 20)...">
                 </div>
             </div>
         </div>
@@ -114,8 +487,6 @@
                 <div class="tabs">
                     <button class="tab-btn active" data-tab="tab-out">Output</button>
                     <button class="tab-btn" data-tab="tab-c">Generated C</button>
-                    <button class="tab-btn" data-tab="tab-ast">AST</button>
-                    <button class="tab-btn" data-tab="tab-tokens">Tokens</button>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span id="status-pill" class="status-pill">
@@ -131,8 +502,6 @@
             <div class="panel-body">
                 <pre id="tab-out" class="code-view active" data-placeholder="▶ Run your code to see output here..."></pre>
                 <pre id="tab-c" class="code-view" data-placeholder="Generated C code will appear here after compilation..."></pre>
-                <pre id="tab-ast" class="code-view" data-placeholder="AST will appear here after compilation..."></pre>
-                <pre id="tab-tokens" class="code-view" data-placeholder="Tokens will appear here after compilation..."></pre>
             </div>
         </div>
     </main>
@@ -163,6 +532,8 @@
                         <code>shongkha x = 10; // int</code>
                         <code>doshomik pi = 3.14; // float</code>
                         <code>lekha name = "Rafi"; // string</code>
+                        <code>okkhor c = 'A'; // char</code>
+                        <p style="font-size:0.8rem; color:#94a3b8; margin-top:6px; line-height:1.3;">Use <code>lekha</code> for text strings and <code>okkhor</code> for single characters.</p>
                     </div>
                     <div class="sheet-card">
                         <h3>Arrays</h3>
@@ -199,12 +570,23 @@
                         <code>dekhao("Result: ", res, "\n");</code>
                         <code>nao(x); nao(t[i]); nao(p.erman());</code>
                     </div>
+                    <div class="sheet-card">
+                        <h3>Koto ghor decimal dekhabo</h3>
+                        <code>doshomik pi = 3.14159;</code>
+                        <code>dekhao(pi); // 3.14 (default)</code>
+                        <code>dekhao(pi.ghor(0)); // 3</code>
+                        <code>dekhao(pi.ghor(2)); // 3.14</code>
+                        <code>dekhao(pi.ghor(4)); // 3.1416</code>
+                        <p style="font-size:0.8rem; color:#94a3b8; margin-top:6px; line-height:1.3;">Default precision is 2 places. <code>.ghor(n)</code> works on <code>doshomik</code> inside <code>dekhao()</code>.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <script src="js/types.js"></script>
+    <script src="js/highlight.js"></script>
     <script src="bnlang.js"></script>
     <script>
         const exs = {
@@ -300,7 +682,48 @@ shongkha total = jogfol(marks, 5);
 dekhao("Mot number: ", total, "\\n");
 dekhao("Gord number: ", total / 5, "\\n");
 `,
-            pointer_swap: `// 06. Pointer Swap (Pass by Reference)
+            caesar: `// 06. Caesar Cipher over an okkhor array
+shongkha n = 0;
+shongkha shift = 0;
+
+dekhao("Koyti okkhor? \\n");
+nao(n);
+
+dekhao("Shift koto? \\n");
+nao(shift);
+
+okkhor buf sorbochho(50);
+dekhao("Okkhor gulo dao: \\n");
+chalao (shongkha i = 0; i < n; i++) {
+    nao(buf[i]);
+}
+
+dekhao("Aashol: ");
+chalao (shongkha i = 0; i < n; i++) {
+    dekhao(buf[i]);
+}
+dekhao("\\n");
+
+chalao (shongkha i = 0; i < n; i++) {
+    okkhor c = buf[i];
+    jodi (c >= 'a' ebong c <= 'z') {
+        shongkha offset = c - 'a';
+        shongkha shifted = (offset + shift) % 26;
+        buf[i] = 'a' + shifted;
+    } nahole jodi (c >= 'A' ebong c <= 'Z') {
+        shongkha offset = c - 'A';
+        shongkha shifted = (offset + shift) % 26;
+        buf[i] = 'A' + shifted;
+    }
+}
+
+dekhao("Cipher: ");
+chalao (shongkha i = 0; i < n; i++) {
+    dekhao(buf[i]);
+}
+dekhao("\\n");
+`,
+            pointer_swap: `// 07. Pointer Swap (Pass by Reference)
 kaj shongkha bodlao(shongkha pointer a, shongkha pointer b) {
     shongkha tmp = a.erman();
     a.erman() = b.erman();
@@ -315,7 +738,7 @@ dekhao("Aage: x = ", x, ", y = ", y, "\\n");
 bodlao(x.erthikana(), y.erthikana());
 dekhao("Pore: x = ", x, ", y = ", y, "\\n");
 `,
-            pointer_minmax: `// 07. Find Min and Max using Pointers
+            pointer_minmax: `// 08. Find Min and Max using Pointers
 kaj shongkha boro_choto(shongkha a, shongkha b, shongkha pointer boro, shongkha pointer choto) {
     jodi (a > b) {
         boro.erman() = a;
@@ -338,7 +761,7 @@ dekhao("Duti shongkha: ", p, " ebong ", q, "\\n");
 dekhao("Boro shongkha: ", max, "\\n");
 dekhao("Choto shongkha: ", min, "\\n");
 `,
-            recursion: `// 08. Recursive Factorial
+            recursion: `// 09. Recursive Factorial
 kaj shongkha factorial(shongkha n) {
     jodi (n <= 1) {
         ferot 1;
@@ -350,7 +773,7 @@ chalao (shongkha i = 1; i <= 6; i++) {
     dekhao(i, "! = ", factorial(i), "\\n");
 }
 `,
-            input: `// 09. Interactive Input with nao()
+            input: `// 10. Interactive Input with nao()
 dekhao("Duti shongkha input dao: \\n");
 shongkha a = 0;
 shongkha b = 0;
@@ -359,6 +782,22 @@ nao(b);
 
 dekhao("Jogfol: ", a + b, "\\n");
 dekhao("Gunfol: ", a * b, "\\n");
+`,
+            average: `// 11. Marks Average using doshomik & .ghor(n)
+doshomik m1 = 0.0;
+doshomik m2 = 0.0;
+doshomik m3 = 0.0;
+
+dekhao("Tin ti mark dao: \\n");
+nao(m1);
+nao(m2);
+nao(m3);
+
+doshomik mot = m1 + m2 + m3;
+doshomik gor = mot / 3.0;
+
+dekhao("Mot: ", mot.ghor(1), "\\n");
+dekhao("Gor: ", gor.ghor(2), "\\n");
 `
         };
 
@@ -369,84 +808,12 @@ dekhao("Gunfol: ", a * b, "\\n");
         const editorContainer = $('editor-container');
         let mod, cFn, cInFn;
 
-        // ============================================================
-        // Syntax Highlighter
-        // ============================================================
-        const TYPES = new Set(['shongkha', 'doshomik', 'lekha', 'pointer']);
-        const CONTROL = new Set(['jodi', 'nahole', 'jotokkhon', 'chalao', 'thamo', 'ferot', 'kaj']);
-        const LOGIC = new Set(['ebong', 'tasara', 'ulto']);
-        const IO = new Set(['dekhao', 'nao']);
-        const BUILTINS = new Set(['sorbochho', 'erthikana', 'erman', 'faka']);
-
-        function escapeHtml(s) {
-            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-
-        function classifyWord(word) {
-            if (TYPES.has(word)) return 'hl-type';
-            if (CONTROL.has(word)) return 'hl-control';
-            if (LOGIC.has(word)) return 'hl-logic';
-            if (IO.has(word)) return 'hl-io';
-            if (BUILTINS.has(word)) return 'hl-builtin';
-            return 'hl-ident';
-        }
-
-        // Master regex: covers every character so nothing is dropped.
-        // Order matters: comments first, then strings, numbers, identifiers,
-        // punctuation (WITHOUT double-quote), whitespace.
-        // IMPORTANT: " is excluded from punctuation so strings are always detected properly.
-        const MASTER_RE = /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"?)|(\b\d+(?:\.\d+)?\b)|([a-zA-Z_]\w*)|([^\s\w"]+)|([ \t\r\n]+)/g;
-
-        function highlightSource(source) {
-            let html = '';
-            let lastIndex = 0;
-            MASTER_RE.lastIndex = 0;
-            let match;
-
-            while ((match = MASTER_RE.exec(source)) !== null) {
-                // Safety: if the regex skipped characters, include them raw
-                if (match.index > lastIndex) {
-                    html += escapeHtml(source.slice(lastIndex, match.index));
-                }
-                lastIndex = match.index + match[0].length;
-
-                const raw = match[0];
-                const escaped = escapeHtml(raw);
-
-                if (match[1] !== undefined) {
-                    // Comment
-                    html += '<span class="hl-comment">' + escaped + '</span>';
-                } else if (match[2] !== undefined) {
-                    // String
-                    html += '<span class="hl-string">' + escaped + '</span>';
-                } else if (match[3] !== undefined) {
-                    // Number
-                    html += '<span class="hl-number">' + escaped + '</span>';
-                } else if (match[4] !== undefined) {
-                    // Identifier / keyword
-                    const cls = classifyWord(raw);
-                    html += '<span class="' + cls + '">' + escaped + '</span>';
-                } else if (match[5] !== undefined) {
-                    // Punctuation
-                    html += '<span class="hl-punct">' + escaped + '</span>';
-                } else {
-                    // Whitespace — pass through as-is
-                    html += raw;
-                }
-            }
-
-            // Anything remaining after the last match
-            if (lastIndex < source.length) {
-                html += escapeHtml(source.slice(lastIndex));
-            }
-
-            return html;
-        }
-
+        // Syntax highlighter provided by js/highlight.js
         function updateHighlight() {
             const src = srcEl.value;
             highlightLayer.innerHTML = highlightSource(src);
         }
+
 
         // ============================================================
         // Line Numbers Updater
@@ -471,18 +838,65 @@ dekhao("Gunfol: ", a * b, "\\n");
             lineNumsEl.scrollTop = scrollTop;
         }
 
+        // ============================================================
+        // Persistence (localStorage) & Code Change Tracking
+        // ============================================================
+        const STORAGE_KEY = 'kagu_web_code';
+        const savedCode = localStorage.getItem(STORAGE_KEY);
+        const isFirstVisit = !savedCode;
+        let lastRunCode = null;
+        let saveTimeout = null;
+
+        function markOutputOutdated() {
+            if (lastRunCode !== null && srcEl.value !== lastRunCode) {
+                $('tab-out').classList.add('outdated-output');
+                setStatus('ready', 'Code bodleche, abar chalao');
+            } else {
+                $('tab-out').classList.remove('outdated-output');
+            }
+        }
+
         srcEl.addEventListener('input', () => {
             updateLineNumbers();
             updateHighlight();
             syncScroll();
+            markOutputOutdated();
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                localStorage.setItem(STORAGE_KEY, srcEl.value);
+            }, 300);
         });
 
         srcEl.addEventListener('scroll', syncScroll);
 
-        // Set initial example
-        srcEl.value = exs.hello;
+        // Load initial code (from localStorage or default Hello World)
+        srcEl.value = savedCode ? savedCode : exs.hello;
         updateLineNumbers();
         updateHighlight();
+
+        // ============================================================
+        // Mobile Symbol Quick Bar Actions
+        // ============================================================
+        document.querySelectorAll('.sym-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const toInsert = btn.getAttribute('data-insert');
+                if (!toInsert) return;
+                const start = srcEl.selectionStart;
+                const end = srcEl.selectionEnd;
+                srcEl.value = srcEl.value.substring(0, start) + toInsert + srcEl.value.substring(end);
+                srcEl.selectionStart = srcEl.selectionEnd = start + toInsert.length;
+                updateLineNumbers();
+                updateHighlight();
+                syncScroll();
+                markOutputOutdated();
+                srcEl.focus();
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    localStorage.setItem(STORAGE_KEY, srcEl.value);
+                }, 300);
+            });
+        });
 
         // ============================================================
         // Editor Toolbar: Font Size A-/A+
@@ -552,12 +966,12 @@ dekhao("Gunfol: ", a * b, "\\n");
         // ============================================================
         $('sel').onchange = e => {
             if (e.target.value && exs[e.target.value]) {
+                if (activeSession) { activeSession.active = false; activeSession = null; }
                 srcEl.value = exs[e.target.value];
                 updateLineNumbers();
                 updateHighlight();
-                if (e.target.value === 'input') {
-                    $('in').value = '12 8';
-                }
+                markOutputOutdated();
+                localStorage.setItem(STORAGE_KEY, srcEl.value);
                 // Switch back to editor on mobile when loading example
                 if (window.innerWidth <= 768) {
                     segEditor.click();
@@ -570,6 +984,10 @@ dekhao("Gunfol: ", a * b, "\\n");
         // ============================================================
         srcEl.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
+                const ac = $('autocomplete-dropdown');
+                if (ac && ac.style.display === 'block') {
+                    return; // Let autocomplete handle Tab!
+                }
                 e.preventDefault();
                 const start = this.selectionStart;
                 const end = this.selectionEnd;
@@ -577,6 +995,8 @@ dekhao("Gunfol: ", a * b, "\\n");
                 this.selectionStart = this.selectionEnd = start + 4;
                 updateLineNumbers();
                 updateHighlight();
+                syncScroll();
+                markOutputOutdated();
             } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 $('run').click();
@@ -598,11 +1018,11 @@ dekhao("Gunfol: ", a * b, "\\n");
         function setStatus(state, msg) {
             const dot = $('status-dot');
             const text = $('status-text');
-            dot.className = 'status-dot ' + (state === 'loading' ? 'loading' : state === 'error' ? 'error' : '');
+            dot.className = 'status-dot ' + (state === 'loading' ? 'loading' : state === 'error' ? 'error' : state === 'waiting' ? 'waiting' : '');
             text.innerText = msg;
         }
 
-        setStatus('loading', 'Loading compiler...');
+        setStatus('loading', 'Compiler load hochhe...');
 
         if (typeof createBNLang !== 'undefined') {
             createBNLang().then(m => {
@@ -611,10 +1031,13 @@ dekhao("Gunfol: ", a * b, "\\n");
                 cFn = mod.cwrap('bnlang_compile', 'number', ['string']);
                 setStatus('ready', 'Ready');
                 $('timing-stats').innerText = 'Compiler engine loaded & ready';
+                if (isFirstVisit) {
+                    runInteractiveSession();
+                }
             }).catch(err => {
                 setStatus('error', 'Init failed');
                 $('err').className = 'has-errors';
-                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Failed to initialize engine: ${err.message}</div></div>`;
+                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Failed to initialize engine: ${escapeHtml(err.message)}</div></div>`;
             });
         }
 
@@ -636,7 +1059,9 @@ dekhao("Gunfol: ", a * b, "\\n");
         $('btn-copy').onclick = () => {
             const activeTab = document.querySelector('.code-view.active');
             if (activeTab && activeTab.textContent) {
-                navigator.clipboard.writeText(activeTab.textContent).then(() => {
+                const transcriptEl = activeTab.querySelector('.term-transcript');
+                const textToCopy = transcriptEl ? transcriptEl.textContent : activeTab.textContent;
+                navigator.clipboard.writeText(textToCopy).then(() => {
                     const copyLabel = $('copy-label');
                     copyLabel.innerText = 'Copied!';
                     setTimeout(() => copyLabel.innerText = 'Copy', 1500);
@@ -648,6 +1073,7 @@ dekhao("Gunfol: ", a * b, "\\n");
         // Clear button
         // ============================================================
         $('btn-clear-src').onclick = () => {
+            if (activeSession) { activeSession.active = false; activeSession = null; }
             srcEl.value = '';
             updateLineNumbers();
             updateHighlight();
@@ -726,6 +1152,7 @@ dekhao("Gunfol: ", a * b, "\\n");
                 { label: 'shongkha',   kind: 'kw', insert: 'shongkha ',       detail: 'int' },
                 { label: 'doshomik',   kind: 'kw', insert: 'doshomik ',        detail: 'float' },
                 { label: 'lekha',      kind: 'kw', insert: 'lekha ',           detail: 'char[100]' },
+                { label: 'okkhor',     kind: 'kw', insert: 'okkhor ',          detail: 'char' },
                 { label: 'pointer',    kind: 'kw', insert: 'pointer ',         detail: 'pointer type' },
                 { label: 'sorbochho', kind: 'kw', insert: 'sorbochho(|)',      detail: 'array size' },
 
@@ -752,6 +1179,7 @@ dekhao("Gunfol: ", a * b, "\\n");
                 { label: 'erthikana',  kind: 'fn', insert: '.erthikana()',     detail: '& address-of' },
                 { label: 'erman',      kind: 'fn', insert: '.erman()',         detail: '* dereference' },
                 { label: 'lomba',      kind: 'fn', insert: '.lomba()',         detail: 'array length' },
+                { label: 'ghor',       kind: 'fn', insert: '.ghor(|)',         detail: 'print precision' },
 
                 // Snippets
                 { label: 'jodi block',      kind: 'sn', insert: 'jodi (|) {\n    \n}',                     detail: 'if statement' },
@@ -997,73 +1425,250 @@ dekhao("Gunfol: ", a * b, "\\n");
 
         })(); // end initAutocomplete
 
-        $('run').onclick = () => {
-            if (!mod || (!cFn && !cInFn)) return alert("Compiler is still initializing. Please wait a moment.");
-            
-            setStatus('loading', 'Compiling...');
+        let activeSession = null;
+
+        function jumpToLine(lineNum, colNum) {
+            if (window.innerWidth <= 768) {
+                segEditor.click();
+            }
+            const text = srcEl.value;
+            const lines = text.split('\n');
+            const targetLine = Math.max(1, Math.min(lines.length, lineNum));
+            let charIndex = 0;
+            for (let i = 0; i < targetLine - 1; i++) {
+                charIndex += lines[i].length + 1;
+            }
+
+            const lineText = lines[targetLine - 1] || '';
+            if (colNum && colNum > 0) {
+                const colStart = Math.min(Math.max(0, colNum - 1), lineText.length);
+                let tokenLen = 1;
+                if (colStart < lineText.length) {
+                    const rest = lineText.slice(colStart);
+                    const wordMatch = rest.match(/^[a-zA-Z0-9_]+/);
+                    if (wordMatch) {
+                        tokenLen = wordMatch[0].length;
+                    }
+                }
+                // Place cursor AFTER the error token/character
+                const colEnd = Math.min(colStart + tokenLen, lineText.length);
+                charIndex += colEnd;
+            } else {
+                // If no specific column, place cursor at the end of the line
+                charIndex += lineText.length;
+            }
+
+            srcEl.focus();
+            srcEl.setSelectionRange(charIndex, charIndex);
+            const lineH = parseFloat(window.getComputedStyle(srcEl).lineHeight) || 20;
+            srcEl.scrollTop = Math.max(0, (targetLine - 3) * lineH);
+            syncScroll();
+        }
+
+        function createErrorCard(e) {
+            const card = document.createElement('div');
+            card.className = 'error-card';
+            card.setAttribute('title', 'Click to jump to line');
+            const kindText = escapeHtml(e.kind || 'error');
+            const lineVal = e.line || 1;
+            const colVal = (e.col !== undefined && e.col !== null) ? e.col : 0;
+            card.innerHTML = `
+                <div class="error-header">
+                    <span class="error-badge">${kindText}</span>
+                    <span class="error-loc">Line ${escapeHtml(lineVal)}, Col ${escapeHtml(colVal)}</span>
+                    <span class="error-jump-hint">Line-e jao ↗</span>
+                </div>
+                <div class="error-msg">${escapeHtml(e.message || '')}</div>
+                ${e.suggestion ? `<div class="error-sug"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-2px; margin-right:4px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>${escapeHtml(e.suggestion)}</div>` : ''}
+            `;
+            card.onclick = () => jumpToLine(lineVal, colVal);
+            return card;
+        }
+
+        function runInteractiveSession() {
+            if (!mod || (!cFn && !cInFn)) {
+                setStatus('loading', 'Compiler load hochhe, ektu apekkha koro...');
+                return;
+            }
+
+            if (activeSession) {
+                activeSession.active = false;
+                activeSession = null;
+            }
+
+            const srcCode = srcEl.value;
+            lastRunCode = srcCode;
+            $('tab-out').classList.remove('outdated-output');
+
+            setStatus('loading', 'Cholche…');
             $('err').innerHTML = '';
             $('err').classList.remove('has-errors');
             $('tab-out').textContent = '';
             $('tab-c').textContent = '';
-            $('tab-ast').textContent = '';
-            $('tab-tokens').textContent = '';
+
+            const session = {
+                active: true,
+                srcCode: srcCode,
+                accumulatedStdin: '',
+                lastOutputLen: 0,
+                transcript: ''
+            };
+            activeSession = session;
+
+            // Automatically switch to output on mobile when running
+            if (window.innerWidth <= 768) {
+                segOutput.click();
+            }
+
+            stepSession(session);
+        }
+
+        function stepSession(session) {
+            if (!session.active) return;
 
             let ptr = 0;
             try {
-                const srcCode = srcEl.value;
-                const stdinData = $('in').value;
-                ptr = cInFn ? cInFn(srcCode, stdinData) : cFn(srcCode);
+                ptr = cInFn ? cInFn(session.srcCode, session.accumulatedStdin) : cFn(session.srcCode);
                 const resJson = mod.UTF8ToString(ptr);
                 const res = JSON.parse(resJson);
 
-                if (res.ok) {
-                    setStatus('ready', 'Success');
-                    $('tab-out').textContent = res.output || '(Program executed successfully with no output)';
-                    $('tab-c').textContent = res.c_code || '';
-                    $('tab-ast').textContent = res.ast || '';
-                    if (res.tokens) {
-                        $('tab-tokens').textContent = res.tokens.map(t => 
-                            `[L${t.line}:${t.col}] ${t.type.padEnd(16)} "${t.lexeme}"`
-                        ).join('\n');
-                    }
-                } else {
-                    setStatus('error', `${res.errors.length} Error(s)`);
-                    $('err').classList.add('has-errors');
-                    res.errors.forEach(e => {
-                        const card = document.createElement('div');
-                        card.className = 'error-card';
-                        card.innerHTML = `
-                            <div class="error-header">
-                                <span class="error-badge">${e.kind || 'error'}</span>
-                                <span class="error-loc">Line ${e.line}, Col ${e.col}</span>
-                            </div>
-                            <div class="error-msg">${e.message || ''}</div>
-                            ${e.suggestion ? `<div class="error-sug"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:-2px; margin-right:4px;"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>${e.suggestion}</div>` : ''}
-                        `;
-                        $('err').appendChild(card);
-                    });
-                    if (res.c_code) $('tab-c').textContent = res.c_code;
-                    if (res.ast) $('tab-ast').textContent = res.ast;
-                }
+                if (res.c_code) $('tab-c').textContent = res.c_code;
 
-                // Automatically switch to output on mobile when running
-                if (window.innerWidth <= 768) {
-                    segOutput.click();
-                }
-
-                // Show timings
                 if (res.timing_ms) {
                     const t = res.timing_ms;
                     $('timing-stats').innerText = `Lex: ${t.lex.toFixed(2)}ms | Parse: ${t.parse.toFixed(2)}ms | Semantic: ${t.semantic.toFixed(2)}ms | Codegen: ${t.codegen.toFixed(2)}ms`;
                 }
+
+                const rawOutput = res.output || '';
+                const newChunk = rawOutput.slice(session.lastOutputLen);
+                session.lastOutputLen = rawOutput.length;
+                if (newChunk) {
+                    session.transcript += escapeHtml(newChunk);
+                }
+
+                const isWaitingForInput = !res.ok && res.errors && res.errors.length === 1 &&
+                    res.errors[0].kind === 'runtime' &&
+                    res.errors[0].message && res.errors[0].message.indexOf('input ses hoye geche') !== -1;
+
+                if (isWaitingForInput) {
+                    setStatus('waiting', 'Input dao');
+                    $('err').innerHTML = '';
+                    $('err').classList.remove('has-errors');
+
+                    // Gapless input rendering (no literal newline/spaces between elements inside <pre>)
+                    $('tab-out').innerHTML = `<div class="term-transcript">${session.transcript}</div><div class="term-input-line" id="term-input-line"><span class="term-prompt">❯</span><input type="text" id="term-input" class="term-input-field" autocomplete="off" spellcheck="false" placeholder="Type input and press Enter..."><button id="term-submit" class="term-submit-btn" type="button" title="Submit (Enter)"><span>Enter</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg></button></div>`;
+
+                    $('tab-out').scrollTop = $('tab-out').scrollHeight;
+
+                    const termInput = $('term-input');
+                    const termSubmit = $('term-submit');
+
+                    const submitHandler = () => {
+                        if (!session.active) return;
+                        const val = termInput.value;
+                        session.accumulatedStdin += val + '\n';
+                        session.transcript += `<span class="term-user-line"><span class="term-prompt">❯</span> <span class="term-user-echo">${escapeHtml(val)}</span></span>\n`;
+                        termInput.disabled = true;
+                        if (termSubmit) termSubmit.disabled = true;
+                        stepSession(session);
+                    };
+
+                    termInput.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            submitHandler();
+                        } else if (e.key === 'Escape') {
+                            session.active = false;
+                            setStatus('ready', 'Stopped');
+                            session.transcript += `\n<span class="term-stopped">[Execution stopped by user]</span>`;
+                            $('tab-out').innerHTML = `<div class="term-transcript">${session.transcript}</div>`;
+                        }
+                    });
+
+                    termSubmit.onclick = submitHandler;
+
+                    setTimeout(() => {
+                        if (session.active && $('term-input')) {
+                            $('term-input').focus();
+                        }
+                    }, 20);
+
+                    return;
+                }
+
+                // If not waiting for input:
+                session.active = false;
+                activeSession = null;
+
+                if (res.ok) {
+                    setStatus('ready', 'Hoye geche');
+                    if (!session.transcript.trim()) {
+                        $('tab-out').textContent = '(Program safolbhabe choleche, kono output nei)';
+                    } else {
+                        $('tab-out').innerHTML = `<div class="term-transcript">${session.transcript}</div>`;
+                    }
+                    $('tab-out').scrollTop = $('tab-out').scrollHeight;
+                } else {
+                    setStatus('error', `${res.errors.length} ta bhul ache`);
+                    $('err').classList.add('has-errors');
+                    $('err').innerHTML = '';
+
+                    if (!session.transcript) {
+                        $('tab-out').innerHTML = `<div style="color:var(--accent-rose); font-style:italic; padding:6px 0;">✕ Compile kora jaayni (${res.errors.length} ta bhul). Niche bhul-er biboron dekho.</div>`;
+                    } else {
+                        $('tab-out').innerHTML = `<div class="term-transcript">${session.transcript}</div>`;
+                    }
+
+                    // Render first error card prominently
+                    if (res.errors.length > 0) {
+                        $('err').appendChild(createErrorCard(res.errors[0]));
+                    }
+
+                    // Fold secondary errors if multiple
+                    if (res.errors.length > 1) {
+                        const toggleBtn = document.createElement('button');
+                        toggleBtn.className = 'errors-fold-toggle';
+                        toggleBtn.type = 'button';
+                        toggleBtn.textContent = `+ Aro ${res.errors.length - 1} ta bhul ache (dekhte click koro)`;
+                        
+                        const foldedList = document.createElement('div');
+                        foldedList.className = 'folded-errors-list';
+                        for (let i = 1; i < res.errors.length; i++) {
+                            foldedList.appendChild(createErrorCard(res.errors[i]));
+                        }
+
+                        toggleBtn.onclick = () => {
+                            const isOpen = foldedList.classList.toggle('open');
+                            toggleBtn.textContent = isOpen 
+                                ? `- Bakigulo lukao` 
+                                : `+ Aro ${res.errors.length - 1} ta bhul ache (dekhte click koro)`;
+                        };
+
+                        $('err').appendChild(toggleBtn);
+                        $('err').appendChild(foldedList);
+                    }
+                }
             } catch (err) {
+                session.active = false;
+                activeSession = null;
                 setStatus('error', 'Exception');
                 $('err').classList.add('has-errors');
-                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Exception: ${err.message}</div></div>`;
+                $('err').innerHTML = `<div class="error-card"><div class="error-msg">Exception: ${escapeHtml(err.message)}</div></div>`;
             } finally {
                 if (ptr) mod._bnlang_free(ptr);
             }
-        };
+        }
+
+        $('run').onclick = runInteractiveSession;
+
+        // Clicking anywhere in the output tab focuses the active input if one exists
+        $('tab-out').addEventListener('click', (e) => {
+            const inp = $('term-input');
+            if (inp && !inp.disabled && e.target !== inp && !e.target.closest('#term-submit')) {
+                inp.focus();
+            }
+        });
+
     </script>
 </body>
 </html>

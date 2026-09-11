@@ -1,0 +1,15 @@
+// Marks average program reading three doshomik values
+doshomik m1 = 0.0;
+doshomik m2 = 0.0;
+doshomik m3 = 0.0;
+
+dekhao("Tin ti mark dao: \n");
+nao(m1);
+nao(m2);
+nao(m3);
+
+doshomik mot = m1 + m2 + m3;
+doshomik gor = mot / 3.0;
+
+dekhao("Mot: ", mot.ghor(1), "\n");
+dekhao("Gor: ", gor.ghor(2), "\n");

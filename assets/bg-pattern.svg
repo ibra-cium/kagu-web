@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
-  <g fill="none" stroke="#0F172A" stroke-opacity="0.06" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+  <g fill="none" stroke="#26362F" stroke-opacity="0.35" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
     <!-- Outer Browser Container -->
     <path d="M 80 60 L 200 60 L 240 105 L 420 105 C 445 105 460 120 460 145 L 460 400 C 460 425 445 440 420 440 L 80 440 C 55 440 40 425 40 400 L 40 100 C 40 75 55 60 80 60 Z" />
     
     <!-- Core Geometric K & Editor Playback Lines -->
-    <line x1="120" y1="160" x2="120" y2="380" stroke-width="24" />
-    <path d="M 280 160 L 140 270 L 280 380" stroke-width="24" />
+    <line x1="120" y1="160" x2="120" y2="380" stroke-width="22" />
+    <path d="M 280 160 L 140 270 L 280 380" stroke-width="22" />
     
     <!-- Triangular Play Area Marker -->
-    <polygon points="320,240 375,270 320,300" fill="#0F172A" fill-opacity="0.04" stroke="none" />
+    <polygon points="320,240 375,270 320,300" fill="#26362F" fill-opacity="0.2" stroke="none" />
   </g>
 </svg>
