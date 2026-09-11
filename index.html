@@ -28,36 +28,6 @@
                         <stop offset="50%" stop-color="#0f1926" />
                         <stop offset="100%" stop-color="#14212c" />
                     </linearGradient>
-
-                    <!-- Metro Headlight Cones -->
-                    <linearGradient id="metroEastBeam" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#f5b731" stop-opacity="0" />
-                        <stop offset="100%" stop-color="#f5b731" stop-opacity="0.85" />
-                    </linearGradient>
-
-                    <linearGradient id="metroWestBeam" x1="100%" y1="0%" x2="0%" y2="0%">
-                        <stop offset="0%" stop-color="#f5b731" stop-opacity="0" />
-                        <stop offset="100%" stop-color="#f5b731" stop-opacity="0.85" />
-                    </linearGradient>
-
-                    <!-- CNG Headlight Cones -->
-                    <linearGradient id="cngEastBeam" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#72c6f2" stop-opacity="0" />
-                        <stop offset="100%" stop-color="#72c6f2" stop-opacity="0.8" />
-                    </linearGradient>
-                    <linearGradient id="cngWestBeam" x1="100%" y1="0%" x2="0%" y2="0%">
-                        <stop offset="0%" stop-color="#72c6f2" stop-opacity="0" />
-                        <stop offset="100%" stop-color="#72c6f2" stop-opacity="0.8" />
-                    </linearGradient>
-
-                    <!-- Soft Amber Lamp Glow -->
-                    <filter id="streetLampGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="1.8" result="blur" />
-                        <feMerge>
-                            <feMergeNode in="blur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
                 </defs>
 
                 <!-- 1. Background Night Sky -->
@@ -204,10 +174,7 @@
                 <!-- 4. The Reversing Loop Dhaka Metro Train (MRT Line 6) -->
                 <g class="metro-train-track">
                     <g class="metro-train-loop" id="metro-train-loop">
-                        <!-- Eastbound Headlight Cone (Bright when train moves east) -->
-                        <polygon class="headlight-east" points="0,17.5 28,13 28,22" fill="url(#metroEastBeam)" />
-                        <!-- Westbound Headlight Cone (Bright when train moves west) -->
-                        <polygon class="headlight-west" points="-108,17.5 -136,13 -136,22" fill="url(#metroWestBeam)" />
+
 
                         <!-- Car 1 (East Lead Cab - Aerodynamic Nose) -->
                         <path d="M 0,17.5 C -1.5,16 -4,15 -8,15 L -36,15 L -36,20 L -1,20 Z" fill="#eef2e6" stroke="#006a4e" stroke-width="0.6" />
@@ -252,23 +219,23 @@
                 <g class="city-streetlamps">
                     <g transform="translate(100, 34)">
                         <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
-                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" />
                     </g>
                     <g transform="translate(280, 34)">
                         <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
-                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" />
                     </g>
                     <g transform="translate(480, 34)">
                         <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
-                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" />
                     </g>
                     <g transform="translate(680, 34)">
                         <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
-                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" />
                     </g>
                     <g transform="translate(880, 34)">
                         <path d="M 0,0 L 0,-13 Q 0,-17 5,-17" stroke="#364b3f" stroke-width="1" fill="none" />
-                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" filter="url(#streetLampGlow)" />
+                        <circle cx="5" cy="-15.5" r="1.6" fill="#ffa85e" />
                     </g>
                 </g>
 
@@ -280,7 +247,6 @@
                 <!-- Westbound Green CNG 1 -->
                 <g class="traffic-west-cng">
                     <g transform="translate(0, 35)">
-                        <polygon points="0,5.5 -16,2.5 -16,8.5" fill="url(#cngWestBeam)" />
                         <path d="M 0,5 L -3,2 L -14,2 L -16,5 L -16,8.5 L 0,8.5 Z" fill="#1b8b54" stroke="#146b40" stroke-width="0.6" />
                         <path d="M -3,2 L -14,2 L -13,0 L -4,0 Z" fill="#1c2520" />
                         <rect x="-10" y="3" width="5" height="2.5" fill="#f5b731" opacity="0.9" />
@@ -354,7 +320,6 @@
                 <!-- Eastbound Green CNG 2 -->
                 <g class="traffic-east-cng">
                     <g transform="translate(0, 44)">
-                        <polygon points="0,5.5 18,2.5 18,8.5" fill="url(#cngEastBeam)" />
                         <path d="M 0,5 L -4,2 L -16,2 L -18,5 L -18,9 L 0,9 Z" fill="#1b8b54" stroke="#146b40" stroke-width="0.7" />
                         <path d="M -4,2 L -16,2 L -15,-0.5 L -5,-0.5 Z" fill="#1c2520" />
                         <rect x="-11" y="3" width="6" height="3" fill="#f5b731" opacity="0.9" />
