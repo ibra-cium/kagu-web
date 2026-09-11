@@ -3,20 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kagu Web — BNLang IDE</title>
+    <title>Kagu Web — Modern Bangalish (BNLang v2) IDE &amp; C Transpiler</title>
+    
+    <!-- Primary Meta Tags & SEO -->
+    <meta name="description" content="Kagu is a high-performance in-browser IDE, C transpiler, and tree-walking interpreter for BNLang (Bangalish). Write, execute, and transpile code with real-time tooling.">
+    <meta name="keywords" content="BNLang, BNLang IDE, Kagu Web, Bangalish programming language, Bengali programming, C transpiler, in-browser compiler, WebAssembly IDE, AST interpreter, online compiler, Bangladesh CSE tooling">
+    <meta name="author" content="Ibrahim (ibra-cium)">
+    <meta name="publisher" content="Kagu Project">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://kagu-web-one.vercel.app/">
+    <link rel="alternate" hreflang="x-default" href="https://kagu-web-one.vercel.app/">
+
+    <!-- Open Graph / Facebook / Discord / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kagu-web-one.vercel.app/">
+    <meta property="og:site_name" content="Kagu Web">
+    <meta property="og:title" content="Kagu Web — Modern Bangalish (BNLang v2) IDE &amp; C Transpiler">
+    <meta property="og:description" content="Write, run, and transpile BNLang (Bangalish) directly in your browser with real-time compilation, interactive standard input, and C code inspection.">
+    <meta property="og:image" content="https://kagu-web-one.vercel.app/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Kagu Web IDE — Modern Bangalish Programming Language Studio">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kagu Web — Modern Bangalish (BNLang v2) IDE &amp; C Transpiler">
+    <meta name="twitter:description" content="Write, run, and transpile BNLang (Bangalish) directly in your browser with real-time compilation, interactive standard input, and C code inspection.">
+    <meta name="twitter:image" content="https://kagu-web-one.vercel.app/assets/og-image.jpg">
+    <meta name="twitter:creator" content="@ibra_cium">
+
+    <!-- Browser Theme & PWA -->
+    <meta name="theme-color" content="#0e1512">
+    <meta name="color-scheme" content="dark">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kagu IDE">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon & Styles -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Schema.org JSON-LD Structured Data for Google Rich Results & Google AI Overview -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://kagu-web-one.vercel.app/#webapp",
+          "name": "Kagu Web",
+          "alternateName": ["Kagu IDE", "BNLang Web IDE", "Bangalish Compiler"],
+          "url": "https://kagu-web-one.vercel.app/",
+          "description": "A high-performance in-browser IDE, C transpiler, and tree-walking interpreter for BNLang (Bangalish programming language). Features real-time AST analysis, interactive stdin/stdout, instant syntax highlighting, and zero-dependency Emscripten execution.",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Any (Web Browser)",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "softwareVersion": "2.1.0",
+          "inLanguage": ["en", "bn"],
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Ibrahim",
+            "url": "https://github.com/ibra-cium"
+          },
+          "featureList": [
+            "In-browser BNLang v2 compilation and execution",
+            "Real-time C transpiler output and inspector",
+            "Interactive standard input (nao) terminal console",
+            "Bangalish keyword auto-complete and lexical syntax highlighting",
+            "Support for integers (shongkha), floats (doshomik), strings (lekha), chars (okkhor), arrays (sorbochho), and pointers (erthikana/erman)",
+            "Responsive layout with split panels and mobile segmented views"
+          ]
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "@id": "https://kagu-web-one.vercel.app/#sourcecode",
+          "name": "BNLang & Kagu Web",
+          "codeRepository": "https://github.com/ibra-cium/kagu-web",
+          "programmingLanguage": ["C", "JavaScript", "Bangalish"],
+          "author": {
+            "@type": "Person",
+            "name": "Ibrahim",
+            "url": "https://github.com/ibra-cium"
+          }
+        }
+      ]
+    }
+    </script>
 </head> 
 <body>
     <!-- Top Header -->
     <header>
         <div class="brand">
-            <a href="#" class="brand-logo" aria-label="Kagu Web Home">
-                <img src="assets/logo.svg" alt="Kagu Web" class="brand-logo-img" height="36">
-            </a>
+            <h1 class="brand-title">
+                <a href="/" class="brand-logo" aria-label="Kagu Web — Modern Bangalish (BNLang v2) IDE &amp; C Transpiler">
+                    <img src="assets/logo.svg" alt="Kagu Web — BNLang IDE &amp; C Transpiler" class="brand-logo-img" height="36">
+                    <span class="sr-only">Kagu Web — Modern Bangalish (BNLang v2) IDE &amp; C Transpiler</span>
+                </a>
+            </h1>
+            <span class="badge-version" title="BNLang Version 2.1">v2.1</span>
         </div>
         <!-- Full-Width, Full-Height Animated Dhaka Cityscape (ঢাকা শহর ও মেট্রোরেল লুপ) -->
         <div class="dhaka-city-bar" id="dhaka-city-bar" role="img" aria-label="Dhaka City Scene with Metro Rail and Traffic Loop">
@@ -375,6 +472,22 @@
         </div>
     </header>
 
+    <!-- Semantic Overview for Search Engine Crawlers & Accessibility -->
+    <section class="sr-only" aria-label="About Kagu Web IDE">
+        <h2>Modern Bangalish (BNLang v2) Web IDE &amp; C Transpiler</h2>
+        <p>
+            Kagu Web is an advanced in-browser IDE, C transpiler, and tree-walking interpreter for BNLang (Bangalish programming language). Designed for modern developers, language designers, and students, Kagu enables instant writing, debugging, interpreting, and compiling of Bangalish source code directly inside web browsers with zero backend dependencies.
+        </p>
+        <h2>Key Capabilities &amp; Architecture</h2>
+        <ul>
+            <li><strong>Zero-Backend Client-Side Execution:</strong> Runs pure JavaScript and WebAssembly Emscripten builds with 0 external server overhead.</li>
+            <li><strong>Real-Time C Transpiler &amp; AST Inspector:</strong> View generated C code and execution output side-by-side in real time.</li>
+            <li><strong>Interactive Stdin Console:</strong> Full terminal input handling supporting <code>nao()</code> interactive prompts.</li>
+            <li><strong>Rich Bangalish Language Grammar:</strong> Full native support for types (<code>shongkha</code>, <code>doshomik</code>, <code>lekha</code>, <code>okkhor</code>), control flow (<code>jodi</code>, <code>nahole</code>, <code>jotokkhon</code>, <code>chalao</code>), compound operations, logic words (<code>ebong</code>, <code>tasara</code>, <code>ulto</code>), arrays (<code>sorbochho</code>), and pointers (<code>erthikana</code>, <code>erman</code>).</li>
+            <li><strong>Modern Developer Ergonomics:</strong> Real-time syntax highlighting, intelligent autocompletion, responsive split workspaces, and mobile-optimized layouts.</li>
+        </ul>
+    </section>
+
     <!-- Mobile Segmented View Controller -->
     <div class="mobile-nav-segmented">
         <button id="seg-editor" class="segment-btn active">
@@ -478,13 +591,19 @@
     <footer class="timing-bar">
         <span id="timing-stats">Status: Ready</span>
         <span class="shortcut-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Run</span>
+        <div class="footer-links">
+            <a href="https://github.com/ibra-cium/kagu-web" target="_blank" rel="noopener noreferrer" class="footer-link" title="Kagu Web on GitHub">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                <span>BNLang v2.1</span>
+            </a>
+        </div>
     </footer>
 
     <!-- Syntax Cheatsheet Modal -->
-    <div id="modal-cheat" class="modal-backdrop">
+    <div id="modal-cheat" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="cheat-modal-title">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>
+                <h2 id="cheat-modal-title">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     BNLang v2 Syntax Quick Reference
                 </h2>
@@ -969,11 +1088,20 @@ dekhao("Gor: ", gor.ghor(2), "\\n");
         });
 
         // ============================================================
-        // Esc key closes cheatsheet modal
+        // Modal Cheatsheet Helpers & Keybindings
         // ============================================================
+        function openCheatModal() {
+            $('modal-cheat').classList.add('open');
+            $('modal-cheat').setAttribute('aria-hidden', 'false');
+        }
+        function closeCheatModal() {
+            $('modal-cheat').classList.remove('open');
+            $('modal-cheat').setAttribute('aria-hidden', 'true');
+        }
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                $('modal-cheat').classList.remove('open');
+                closeCheatModal();
             }
         });
 
@@ -1046,11 +1174,11 @@ dekhao("Gor: ", gor.ghor(2), "\\n");
         };
 
         // ============================================================
-        // Modal Cheatsheet
+        // Modal Cheatsheet Event Listeners
         // ============================================================
-        $('btn-cheat').onclick = () => $('modal-cheat').classList.add('open');
-        $('modal-close').onclick = () => $('modal-cheat').classList.remove('open');
-        $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) $('modal-cheat').classList.remove('open'); };
+        $('btn-cheat').onclick = openCheatModal;
+        $('modal-close').onclick = closeCheatModal;
+        $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) closeCheatModal(); };
 
         // ============================================================
         // Resizable Panel Divider (Desktop only)

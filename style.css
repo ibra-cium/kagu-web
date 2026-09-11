@@ -145,6 +145,15 @@ header {
     object-fit: contain;
 }
 
+.brand-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+
 .badge-version {
     background: rgba(245, 183, 49, 0.15);
     border: 1px solid rgba(245, 183, 49, 0.35);
@@ -153,6 +162,19 @@ header {
     font-weight: 700;
     padding: 2px 7px;
     border-radius: var(--radius-full);
+}
+
+/* Visually Hidden Utility for Search Engine Crawlers & Screen Readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 /* ============================================================
@@ -1152,6 +1174,26 @@ kbd {
     border-radius: 3px;
     font-size: 0.7rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-link {
+    color: var(--text-faint);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-indigo);
 }
 
 /* ============================================================
