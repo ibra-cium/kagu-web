@@ -1,0 +1,6 @@
+doshomik b = 0.0;
+doshomik h = 0.0;
+nao(b);
+nao(h);
+doshomik area = 0.5 * b * h;
+dekhao(area, "\n");

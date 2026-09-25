@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem — Kagu Online Judge</title>
+    
+    <meta name="description" content="Solve BNLang (Bangalish) programming problems with instant online judging and test verdicts.">
+    <meta name="theme-color" content="#0e1512">
+    <meta name="color-scheme" content="dark">
+    
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/judge.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Header -->
+    <header>
+        <div class="brand">
+            <h1 class="brand-title">
+                <a href="problems.html" class="brand-logo" aria-label="Back to Problems">
+                    <img src="assets/logo.svg" alt="Kagu Web" class="brand-logo-img" height="36">
+                    <span class="sr-only">Kagu Online Judge</span>
+                </a>
+            </h1>
+            <select id="prob-selector" class="problem-switcher-select" title="Switch Problem" aria-label="Choose Problem">
+                <option value="1001">1001: Hello World</option>
+                <option value="1002">1002: চার গণিত</option>
+                <option value="1003">1003: ত্রিভুজের ক্ষেত্রফল</option>
+                <option value="1004">1004: জোড় না বিজোড়</option>
+                <option value="1005">1005: বিভাজ্যতা পরীক্ষা</option>
+            </select>
+        </div>
+
+        <div class="controls">
+            <a href="problems.html" id="btn-back-problems" class="btn-secondary toolbar-link" title="All Problems">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Problems</span>
+            </a>
+            <button id="btn-solution" class="btn-secondary" title="View Reference Solution" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Solution</span>
+            </button>
+            <button id="btn-cheat" class="btn-secondary" title="View Language Cheatsheet" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <span>Syntax</span>
+            </button>
+            <button id="btn-run-samples" class="btn-secondary" type="button" title="Run Sample Tests">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Samples</span>
+            </button>
+            <button id="btn-submit" class="btn-primary" type="button" title="Submit Solution (Ctrl+Enter)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Submit</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Segmented View Controller (<= 768px) -->
+    <div class="mobile-nav-segmented">
+        <button id="seg-statement" class="segment-btn active" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Statement</span>
+        </button>
+        <button id="seg-editor" class="segment-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Editor</span>
+        </button>
+        <button id="seg-results" class="segment-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            <span>Results</span>
+        </button>
+        <button id="seg-solution" class="segment-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Solution</span>
+        </button>
+    </div>
+
+    <!-- Main Workspace -->
+    <main>
+        <!-- Panel 1: Problem Statement (Left on Desktop, Tab 1 on Mobile) -->
+        <div id="panel-statement" class="panel mobile-active statement-panel">
+            <div class="panel-header">
+                <span class="panel-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>সমস্যা বিবরণ (Problem Statement)</span>
+                </span>
+                <span id="chip-solved-status"></span>
+            </div>
+
+            <div class="statement-body" id="statement-body">
+                <div class="problem-header-block">
+                    <h1 class="problem-title-bn bangla-text" id="prob-title">
+                        <span>লোড হচ্ছে...</span>
+                    </h1>
+                    <div class="problem-meta-chips" id="prob-meta-chips">
+                        <span class="meta-chip" id="chip-id">Problem 1001</span>
+                        <span class="badge-level" id="chip-level">Beginner</span>
+                        <span class="meta-chip" id="chip-timelimit">Time Limit: 2.0s</span>
+                        <span class="meta-chip" id="chip-checker">Checker: exact</span>
+                    </div>
+                </div>
+
+                <!-- Statement Body -->
+                <div class="statement-section">
+                    <h3 class="bangla-text">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        বিবরণ
+                    </h3>
+                    <div class="statement-content bangla-text" id="prob-statement"></div>
+                </div>
+
+                <!-- Input Specification -->
+                <div class="statement-section">
+                    <h3 class="bangla-text">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                        ইনপুট
+                    </h3>
+                    <div class="statement-content bangla-text" id="prob-input-spec"></div>
+                </div>
+
+                <!-- Output Specification -->
+                <div class="statement-section">
+                    <h3 class="bangla-text">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 14 20 9 15 4"></polyline><path d="M4 20v-7a4 4 0 0 1 4-4h12"></path></svg>
+                        আউটপুট
+                    </h3>
+                    <div class="statement-content bangla-text" id="prob-output-spec"></div>
+                </div>
+
+                <!-- Optional Note -->
+                <div class="statement-section" id="prob-note-container" style="display:none;">
+                    <h3 class="bangla-text">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        নোট
+                    </h3>
+                    <div class="statement-note bangla-text" id="prob-note"></div>
+                </div>
+
+                <!-- Sample Cases -->
+                <div class="statement-section">
+                    <h3 class="bangla-text">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                        নমুনা ইনপুট ও আউটপুট
+                    </h3>
+                    <div id="samples-list"></div>
+                </div>
+
+                <!-- Mandatory Warning Alert -->
+                <div class="important-warning-card bangla-text">
+                    <strong>গুরুত্বপূর্ণ:</strong> শুধু যা চাওয়া হয়েছে তাই প্রিন্ট করো। "সংখ্যা দাও" জাতীয় কোনো অতিরিক্ত লেখা প্রিন্ট করবে না, নাহলে উত্তর Wrong Answer হবে।
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Resizable Divider -->
+        <div class="panel-divider" id="panel-divider"></div>
+
+        <!-- Panel 2: Editor & Results (Right on Desktop, Tabs 2 & 3 on Mobile) -->
+        <div id="panel-right" class="panel show-editor">
+            <!-- Subpanel 1: Code Editor -->
+            <div id="editor-subpanel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <span>Source Code (Bangalish)</span>
+                    </span>
+                    <div class="editor-toolbar">
+                        <button id="btn-font-down" class="toolbar-btn" title="Decrease font size (A-)" type="button">A-</button>
+                        <button id="btn-font-up" class="toolbar-btn" title="Increase font size (A+)" type="button">A+</button>
+                        <div class="toolbar-sep"></div>
+                        <button id="btn-wrap" class="toolbar-btn" title="Toggle word wrap" type="button">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                            <span>Wrap</span>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <button id="btn-clear-src" class="icon-btn" title="Clear Editor" type="button">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            <span>Clear</span>
+                        </button>
+                        <button id="btn-reset-code" class="icon-btn" title="Reset Code to Template" type="button">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                            <span>Reset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Symbol Helper Bar -->
+                <div class="mobile-symbols-bar" id="mobile-symbols-bar" aria-label="Symbol Quick Bar">
+                    <button type="button" class="sym-btn" data-insert="{">{</button>
+                    <button type="button" class="sym-btn" data-insert="}">}</button>
+                    <button type="button" class="sym-btn" data-insert="(">(</button>
+                    <button type="button" class="sym-btn" data-insert=")">)</button>
+                    <button type="button" class="sym-btn" data-insert=";">;</button>
+                    <button type="button" class="sym-btn" data-insert='"'>"</button>
+                    <button type="button" class="sym-btn" data-insert="'">'</button>
+                    <button type="button" class="sym-btn" data-insert="=">=</button>
+                    <button type="button" class="sym-btn" data-insert="+">+</button>
+                    <button type="button" class="sym-btn" data-insert="-">-</button>
+                    <button type="button" class="sym-btn" data-insert="<">&lt;</button>
+                    <button type="button" class="sym-btn" data-insert=">">&gt;</button>
+                    <button type="button" class="sym-btn" data-insert="[">[</button>
+                    <button type="button" class="sym-btn" data-insert="]">]</button>
+                    <button type="button" class="sym-btn" data-insert="    ">Tab</button>
+                </div>
+
+                <!-- Editor Container with scroll-wrapper (Pixel-Perfect Mapping) -->
+                <div class="editor-container" id="editor-container">
+                    <div id="line-numbers" class="line-numbers">1</div>
+                    <div class="editor-scroll-wrapper">
+                        <pre id="highlight-layer" aria-hidden="true"><code></code></pre>
+                        <textarea id="src" spellcheck="false" placeholder="// BNLang code likho..."></textarea>
+                        <div id="autocomplete-dropdown" class="autocomplete-dropdown" role="listbox" aria-label="Completions"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subpanel 2: Results & Verdict -->
+            <div id="results-subpanel">
+                <div class="judge-results-header">
+                    <div class="results-title">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                        <span>ফলাফল ও ভার্ডিক্ট (Submission Results)</span>
+                    </div>
+                    <div id="results-quick-badge"></div>
+                </div>
+                <div class="results-content" id="results-content">
+                    <div class="results-empty-state">
+                        প্রোগ্রাম লিখে <strong>Samples</strong> বা <strong>Submit</strong> বাটনে ক্লিক করে ফলাফল যাচাই করো।
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Syntax Cheatsheet Modal -->
+    <div id="modal-cheat" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="cheat-modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="cheat-modal-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    BNLang v2 Syntax Quick Reference
+                </h2>
+                <button id="modal-close" class="close-btn" aria-label="Close" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sheet-grid">
+                    <div class="sheet-card">
+                        <h3>Types &amp; Variables</h3>
+                        <code>shongkha x = 10; // int</code>
+                        <code>doshomik pi = 3.14; // float</code>
+                        <code>lekha name = "Rafi"; // string</code>
+                        <code>okkhor c = 'A'; // char</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Operators</h3>
+                        <code>x += 5; x -= 1; x *= 2; x /= 2; x %= 3;</code>
+                        <code>i++; i--;</code>
+                        <code>ebong (&amp;&amp;), tasara (||), ulto (!)</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Control Flow</h3>
+                        <code>jodi (a &gt; 0 ebong b &gt; 0) { }</code>
+                        <code>nahole jodi (a == 0) { } nahole { }</code>
+                        <code>jotokkhon (x &lt; 10) { x++; }</code>
+                        <code>chalao (shongkha i = 0; i &lt; 5; i++) { }</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Functions &amp; I/O</h3>
+                        <code>dekhao("Result: ", res, "\n");</code>
+                        <code>nao(x); // reads from stdin</code>
+                        <code>kaj shongkha jog(shongkha a, shongkha b) { ferot a + b; }</code>
+                    </div>
+                    <div class="sheet-card">
+                        <h3>Precision for doshomik</h3>
+                        <code>doshomik pi = 3.14159;</code>
+                        <code>dekhao(pi); // 3.14 (default)</code>
+                        <code>dekhao(pi.ghor(2)); // 3.14</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reference Solution Modal -->
+    <div id="modal-solution" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="solution-modal-title">
+        <div class="modal-content" style="max-width: 640px;">
+            <div class="modal-header">
+                <h2 id="solution-modal-title" style="display:flex; align-items:center; gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5B731" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span id="solution-modal-heading">Problem Solution</span>
+                </h2>
+                <button id="modal-solution-close" class="close-btn" aria-label="Close" type="button">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:16px 20px;">
+                <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:12px;" class="bangla-text">
+                    এই সমস্যার জন্য আদর্শ রেফারেন্স সমাধান (Reference Solution):
+                </p>
+                <div style="position:relative; background:var(--bg-base); border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; margin-bottom:16px;">
+                    <pre style="margin:0; padding:16px; font-family:var(--font-mono); font-size:13.5px; line-height:1.55; overflow-x:auto; color:var(--hl-ident);"><code id="solution-code-view"></code></pre>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button id="btn-copy-solution" class="btn-secondary" type="button">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copy Code</span>
+                    </button>
+                    <button id="btn-load-solution" class="btn-primary" type="button">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <span>Load into Editor</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bar -->
+    <footer class="timing-bar">
+        <span id="judge-status-msg">Status: Ready</span>
+        <span class="shortcut-hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Submit</span>
+        <div class="footer-links">
+            <a href="problems.html" class="footer-link">
+                <span>Problem List</span>
+            </a>
+            <a href="index.html" class="footer-link">
+                <span>IDE</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/types.js"></script>
+    <script src="js/highlight.js"></script>
+    <script src="js/judge.js"></script>
+    <script>
+        const $ = id => document.getElementById(id);
+        const srcEl = $('src');
+        const lineNumsEl = $('line-numbers');
+        const highlightLayer = $('highlight-layer').querySelector('code');
+        const editorContainer = $('editor-container');
+        const panelStatement = $('panel-statement');
+        const panelRight = $('panel-right');
+
+        // Robust Problem ID resolution (supports query param, hash, sessionStorage, localStorage)
+        function resolveProblemId() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const q = urlParams.get('id') || urlParams.get('problem') || urlParams.get('p');
+                if (q) {
+                    const parsed = parseInt(q, 10);
+                    if (!isNaN(parsed) && parsed >= 1001 && parsed <= 1005) return parsed;
+                }
+            } catch (e) {}
+
+            try {
+                if (window.location.hash) {
+                    const match = window.location.hash.match(/\d+/);
+                    if (match) {
+                        const parsed = parseInt(match[0], 10);
+                        if (!isNaN(parsed) && parsed >= 1001 && parsed <= 1005) return parsed;
+                    }
+                }
+            } catch (e) {}
+
+            try {
+                const s = sessionStorage.getItem('kagu.judge.currentProblem');
+                if (s) {
+                    const parsed = parseInt(s, 10);
+                    if (!isNaN(parsed) && parsed >= 1001 && parsed <= 1005) return parsed;
+                }
+            } catch (e) {}
+
+            try {
+                const l = localStorage.getItem('kagu.judge.currentProblem');
+                if (l) {
+                    const parsed = parseInt(l, 10);
+                    if (!isNaN(parsed) && parsed >= 1001 && parsed <= 1005) return parsed;
+                }
+            } catch (e) {}
+
+            return 1001;
+        }
+
+        let currentProblemId = resolveProblemId();
+        let currentProblemData = null;
+
+        function switchProblem(id) {
+            id = parseInt(id, 10) || 1001;
+            if (id === currentProblemId && currentProblemData) return;
+            currentProblemId = id;
+            try {
+                sessionStorage.setItem('kagu.judge.currentProblem', String(id));
+                localStorage.setItem('kagu.judge.currentProblem', String(id));
+            } catch (e) {}
+
+            const isClean = !window.location.pathname.endsWith('.html');
+            const targetUrl = isClean ? `problem?id=${id}#${id}` : `problem.html?id=${id}#${id}`;
+            history.replaceState(null, '', targetUrl);
+
+            const sel = $('prob-selector');
+            if (sel) sel.value = String(id);
+
+            loadProblem();
+        }
+
+        window.addEventListener('hashchange', () => {
+            const newId = resolveProblemId();
+            if (newId !== currentProblemId) {
+                switchProblem(newId);
+            }
+        });
+
+        window.addEventListener('popstate', () => {
+            const newId = resolveProblemId();
+            if (newId !== currentProblemId) {
+                switchProblem(newId);
+            }
+        });
+
+        const probSelectorEl = $('prob-selector');
+        if (probSelectorEl) {
+            probSelectorEl.value = String(currentProblemId);
+            probSelectorEl.addEventListener('change', (e) => {
+                switchProblem(e.target.value);
+            });
+        }
+
+        const judgeClient = new JudgeClient('js/judge-worker.js');
+
+        // Syntax highlighting
+        function updateHighlight() {
+            highlightLayer.innerHTML = typeof highlightSource === 'function' 
+                ? highlightSource(srcEl.value) 
+                : escapeHtml(srcEl.value);
+        }
+
+        // Line numbers
+        function updateLineNumbers() {
+            const lines = srcEl.value.split('\n').length;
+            let numHtml = '';
+            for (let i = 1; i <= lines; i++) {
+                numHtml += i + '<br>';
+            }
+            lineNumsEl.innerHTML = numHtml;
+        }
+
+        // Scroll synchronization (Pixel-perfect alignment)
+        function syncScroll() {
+            const scrollTop = srcEl.scrollTop;
+            const scrollLeft = srcEl.scrollLeft;
+            $('highlight-layer').scrollTop = scrollTop;
+            $('highlight-layer').scrollLeft = scrollLeft;
+            lineNumsEl.scrollTop = scrollTop;
+        }
+
+        srcEl.addEventListener('scroll', syncScroll);
+
+        function escapeHtml(text) {
+            if (typeof text !== 'string') return '';
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Safe localStorage helpers
+        function getSavedCode(id) {
+            try {
+                return localStorage.getItem(`kagu.judge.code.${id}`);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function saveCode(id, code) {
+            try {
+                localStorage.setItem(`kagu.judge.code.${id}`, code);
+            } catch (e) {}
+        }
+
+        function getSolvedIds() {
+            try {
+                const raw = localStorage.getItem('kagu.judge.solved');
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function markProblemSolved(id) {
+            try {
+                const list = getSolvedIds().map(Number);
+                if (!list.includes(Number(id))) {
+                    list.push(Number(id));
+                    localStorage.setItem('kagu.judge.solved', JSON.stringify(list));
+                }
+            } catch (e) {}
+            updateSolvedStatusUI();
+        }
+
+        function updateSolvedStatusUI() {
+            const list = getSolvedIds().map(Number);
+            const isSolved = list.includes(Number(currentProblemId));
+            const chip = $('chip-solved-status');
+            if (isSolved) {
+                chip.innerHTML = '<span class="status-check" style="width:20px; height:20px; font-size:0.75rem;" title="Solved">✓</span> <span style="color:var(--verdict-ac-color); font-size:0.75rem; font-weight:700;">সমাধান সম্পন্ন</span>';
+            } else {
+                chip.innerHTML = '';
+            }
+        }
+
+        // Autosave on input
+        srcEl.addEventListener('input', () => {
+            updateLineNumbers();
+            updateHighlight();
+            syncScroll();
+            saveCode(currentProblemId, srcEl.value);
+        });
+
+        // Tab indentation support & keyboard shortcut
+        srcEl.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                const ac = $('autocomplete-dropdown');
+                if (ac && ac.style.display === 'block') {
+                    return; // Let autocomplete handle Tab!
+                }
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 4;
+                updateLineNumbers();
+                updateHighlight();
+                syncScroll();
+                saveCode(currentProblemId, this.value);
+            } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                $('btn-submit').click();
+            }
+        });
+
+        // Editor tools
+        let currentFontSize = 14;
+        function applyFontSize() {
+            const px = currentFontSize + 'px';
+            srcEl.style.fontSize = px;
+            $('highlight-layer').style.fontSize = px;
+            highlightLayer.style.fontSize = px;
+            lineNumsEl.style.fontSize = px;
+            syncScroll();
+        }
+
+        $('btn-font-down').onclick = () => {
+            if (currentFontSize > 11) {
+                currentFontSize--;
+                applyFontSize();
+            }
+        };
+
+        $('btn-font-up').onclick = () => {
+            if (currentFontSize < 22) {
+                currentFontSize++;
+                applyFontSize();
+            }
+        };
+
+        let wrapEnabled = false;
+        $('btn-wrap').onclick = () => {
+            wrapEnabled = !wrapEnabled;
+            $('btn-wrap').classList.toggle('active', wrapEnabled);
+            editorContainer.classList.toggle('wrap-on', wrapEnabled);
+            lineNumsEl.classList.toggle('hidden', wrapEnabled);
+            syncScroll();
+        };
+
+        $('btn-clear-src').onclick = () => {
+            srcEl.value = '';
+            updateLineNumbers();
+            updateHighlight();
+            saveCode(currentProblemId, '');
+            srcEl.focus();
+        };
+
+        $('btn-reset-code').onclick = () => {
+            if (confirm('বর্তমান কোড মুছে ফেলে শুরুর টেমপ্লেট লোড করতে চাও?')) {
+                const defaultCode = `// Problem ${currentProblemData ? currentProblemData.id : currentProblemId} — ${currentProblemData ? currentProblemData.title : ''}\n\n`;
+                srcEl.value = defaultCode;
+                updateLineNumbers();
+                updateHighlight();
+                saveCode(currentProblemId, defaultCode);
+                srcEl.focus();
+            }
+        };
+
+        // Mobile Symbols Helper Bar
+        document.querySelectorAll('.sym-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const insertText = btn.getAttribute('data-insert');
+                if (!insertText) return;
+                const start = srcEl.selectionStart;
+                const end = srcEl.selectionEnd;
+                srcEl.value = srcEl.value.slice(0, start) + insertText + srcEl.value.slice(end);
+                const newPos = start + insertText.length;
+                srcEl.selectionStart = srcEl.selectionEnd = newPos;
+                srcEl.focus();
+                updateLineNumbers();
+                updateHighlight();
+                syncScroll();
+                saveCode(currentProblemId, srcEl.value);
+            });
+        });
+
+        // Autocomplete Engine
+        (function initAutocomplete() {
+            const COMPLETIONS = [
+                { label: 'shongkha',   kind: 'kw', insert: 'shongkha ',       detail: 'int' },
+                { label: 'doshomik',   kind: 'kw', insert: 'doshomik ',        detail: 'float' },
+                { label: 'lekha',      kind: 'kw', insert: 'lekha ',           detail: 'char[100]' },
+                { label: 'okkhor',     kind: 'kw', insert: 'okkhor ',          detail: 'char' },
+                { label: 'pointer',    kind: 'kw', insert: 'pointer ',         detail: 'pointer type' },
+                { label: 'sorbochho', kind: 'kw', insert: 'sorbochho(|)',      detail: 'array size' },
+                { label: 'jodi',       kind: 'kw', insert: 'jodi',             detail: 'if' },
+                { label: 'nahole',     kind: 'kw', insert: 'nahole',           detail: 'else' },
+                { label: 'jotokkhon', kind: 'kw', insert: 'jotokkhon',        detail: 'while' },
+                { label: 'chalao',     kind: 'kw', insert: 'chalao',           detail: 'for' },
+                { label: 'thamo',      kind: 'kw', insert: 'thamo;',           detail: 'break' },
+                { label: 'ferot',      kind: 'kw', insert: 'ferot ',           detail: 'return' },
+                { label: 'kaj',        kind: 'kw', insert: 'kaj',              detail: 'function' },
+                { label: 'faka',       kind: 'kw', insert: 'faka',             detail: 'NULL' },
+                { label: 'ebong',      kind: 'kw', insert: 'ebong ',           detail: '&&' },
+                { label: 'tasara',     kind: 'kw', insert: 'tasara ',          detail: '||' },
+                { label: 'ulto',       kind: 'kw', insert: 'ulto',             detail: '! (not)' },
+                { label: 'sotti',      kind: 'kw', insert: 'sotti',            detail: 'true (1)' },
+                { label: 'mittha',     kind: 'kw', insert: 'mittha',           detail: 'false (0)' },
+                { label: 'dekhao',     kind: 'fn', insert: 'dekhao(|)',        detail: 'print' },
+                { label: 'nao',        kind: 'fn', insert: 'nao(|)',           detail: 'input' },
+                { label: 'erthikana',  kind: 'fn', insert: '.erthikana()',     detail: '& address-of' },
+                { label: 'erman',      kind: 'fn', insert: '.erman()',         detail: '* dereference' },
+                { label: 'lomba',      kind: 'fn', insert: '.lomba()',         detail: 'array length' },
+                { label: 'ghor',       kind: 'fn', insert: '.ghor(|)',         detail: 'print precision' },
+                { label: 'jodi block',      kind: 'sn', insert: 'jodi (|) {\n    \n}',                     detail: 'if statement' },
+                { label: 'nahole block',    kind: 'sn', insert: 'nahole {\n    |\n}',                      detail: 'else block' },
+                { label: 'nahole jodi',     kind: 'sn', insert: 'nahole jodi (|) {\n    \n}',              detail: 'else if' },
+                { label: 'jodi-nahole',     kind: 'sn', insert: 'jodi (|) {\n    \n} nahole {\n    \n}',  detail: 'if-else' },
+                { label: 'jotokkhon block', kind: 'sn', insert: 'jotokkhon (|) {\n    \n}',               detail: 'while loop' },
+                { label: 'chalao loop',     kind: 'sn', insert: 'chalao (shongkha i = 0; i < |; i++) {\n    \n}', detail: 'for loop' },
+                { label: 'kaj function',    kind: 'sn', insert: 'kaj shongkha |(shongkha a) {\n    ferot a;\n}', detail: 'function def' }
+            ];
+
+            const ICON_TEXT = { kw: 'KW', fn: 'fn', sn: '{}' };
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            const textarea = document.getElementById('src');
+            let acItems = [];
+            let acIndex = -1;
+            let acVisible = false;
+
+            function getCurrentWord(ta) {
+                const pos = ta.selectionStart;
+                const text = ta.value;
+                let start = pos;
+                while (start > 0 && /[\w-]/.test(text[start - 1])) start--;
+                return { word: text.slice(start, pos), start, end: pos };
+            }
+
+            function filterCompletions(prefix) {
+                if (!prefix || prefix.length < 2) return [];
+                const low = prefix.toLowerCase();
+                return COMPLETIONS.filter(c => c.label.toLowerCase().startsWith(low))
+                    .sort((a, b) => {
+                        const aExact = a.label.toLowerCase() === low;
+                        const bExact = b.label.toLowerCase() === low;
+                        if (aExact && !bExact) return -1;
+                        if (!aExact && bExact) return 1;
+                        return a.label.length - b.label.length;
+                    });
+            }
+
+            function buildLabel(label, prefix) {
+                const low = label.toLowerCase();
+                const idx = low.indexOf(prefix.toLowerCase());
+                if (idx === -1) return `<span class="ac-label-main">${escapeHtml(label)}</span>`;
+                return (
+                    `<span class="ac-label-main">${escapeHtml(label.slice(0, idx))}</span>` +
+                    `<span class="ac-label-match">${escapeHtml(label.slice(idx, idx + prefix.length))}</span>` +
+                    `<span class="ac-label-main">${escapeHtml(label.slice(idx + prefix.length))}</span>`
+                );
+            }
+
+            function positionDropdown() {
+                const pos = textarea.selectionStart;
+                const text = textarea.value.slice(0, pos);
+                const style = window.getComputedStyle(textarea);
+
+                const taRect = textarea.getBoundingClientRect();
+                const lineH = parseFloat(style.lineHeight) || 21.7;
+                const lines = text.split('\n');
+                const row = lines.length - 1;
+                const col = lines[row].length;
+                const charW = (parseFloat(style.fontSize) || 14) * 0.6;
+                const padLeft = parseFloat(style.paddingLeft) || 14;
+                const padTop = parseFloat(style.paddingTop) || 12;
+
+                const ddW = Math.min(280, window.innerWidth - 16);
+                const ddH = Math.min(240, acItems.length * 28 + 8);
+
+                let left = taRect.left + padLeft + col * charW;
+                let top = taRect.top + padTop + (row + 1) * lineH - textarea.scrollTop;
+
+                // Clamp to screen bounds safely
+                const maxLeft = Math.max(8, window.innerWidth - ddW - 8);
+                if (left > maxLeft) left = maxLeft;
+                if (left < 8) left = 8;
+
+                if (top + ddH > window.innerHeight - 8) {
+                    top = top - ddH - lineH;
+                }
+                const maxTop = Math.max(8, window.innerHeight - ddH - 8);
+                if (top > maxTop) top = maxTop;
+                if (top < 8) top = 8;
+
+                dropdown.style.width = ddW + 'px';
+                dropdown.style.left = Math.round(left) + 'px';
+                dropdown.style.top  = Math.round(top) + 'px';
+            }
+
+            function renderDropdown(prefix) {
+                dropdown.innerHTML = '';
+                acItems.forEach((item, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'ac-item' + (i === acIndex ? ' ac-selected' : '');
+                    el.setAttribute('role', 'option');
+                    el.setAttribute('tabindex', '-1');
+                    el.innerHTML = `
+                        <span class="ac-icon ${item.kind}">${ICON_TEXT[item.kind] || 'KW'}</span>
+                        <span class="ac-label">${buildLabel(item.label, prefix)}</span>
+                        <span class="ac-detail">${escapeHtml(item.detail)}</span>
+                        <span class="ac-tab-hint">TAB</span>
+                    `;
+                    const accept = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        acIndex = i;
+                        acceptCompletion();
+                    };
+                    el.addEventListener('pointerdown', accept);
+                    el.addEventListener('mousedown', accept);
+                    el.addEventListener('click', accept);
+                    dropdown.appendChild(el);
+                });
+            }
+
+            function showDropdown(prefix) {
+                acVisible = true;
+                dropdown.style.display = 'block';
+                positionDropdown();
+                renderDropdown(prefix);
+                const sel = dropdown.querySelector('.ac-selected');
+                if (sel) sel.scrollIntoView({ block: 'nearest' });
+            }
+
+            function hideDropdown() {
+                acVisible = false;
+                acItems = [];
+                acIndex = -1;
+                dropdown.style.display = 'none';
+                dropdown.innerHTML = '';
+            }
+
+            function acceptCompletion() {
+                if (acIndex < 0 || acIndex >= acItems.length) return;
+                const item = acItems[acIndex];
+                const { word, start, end } = getCurrentWord(textarea);
+                let replaceStart = start;
+                let replaceText = item.insert;
+                const cursorMarker = replaceText.indexOf('|');
+                let cursorOffset = cursorMarker === -1 ? replaceText.length : cursorMarker;
+                replaceText = replaceText.replace('|', '');
+
+                const before = textarea.value.slice(0, replaceStart);
+                const after  = textarea.value.slice(end);
+                textarea.value = before + replaceText + after;
+
+                const newPos = replaceStart + cursorOffset;
+                textarea.setSelectionRange(newPos, newPos);
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                textarea.focus();
+                hideDropdown();
+            }
+
+            // Prevent blur when clicking or tapping dropdown elements
+            dropdown.addEventListener('pointerdown', e => e.preventDefault());
+            dropdown.addEventListener('mousedown', e => e.preventDefault());
+
+            textarea.addEventListener('input', () => {
+                const { word } = getCurrentWord(textarea);
+                acItems = filterCompletions(word);
+                if (acItems.length === 0) {
+                    hideDropdown();
+                    return;
+                }
+                acIndex = 0;
+                showDropdown(word);
+            });
+
+            textarea.addEventListener('keydown', (e) => {
+                if (!acVisible) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    acIndex = (acIndex + 1) % acItems.length;
+                    renderDropdown(getCurrentWord(textarea).word);
+                    const sel = dropdown.querySelector('.ac-selected');
+                    if (sel) sel.scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    acIndex = (acIndex - 1 + acItems.length) % acItems.length;
+                    renderDropdown(getCurrentWord(textarea).word);
+                    const sel = dropdown.querySelector('.ac-selected');
+                    if (sel) sel.scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'Tab' || (e.key === 'Enter' && !e.ctrlKey && !e.metaKey)) {
+                    if (acIndex >= 0 && acIndex < acItems.length) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        acceptCompletion();
+                    }
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    hideDropdown();
+                }
+            });
+
+            textarea.addEventListener('blur', () => {
+                setTimeout(() => {
+                    hideDropdown();
+                }, 200);
+            });
+            textarea.addEventListener('scroll', () => { if (acVisible) positionDropdown(); });
+            window.addEventListener('resize', () => { if (acVisible) positionDropdown(); });
+        })();
+
+        // Mobile Segmented Switcher (Statement | Editor | Results)
+        const segStatement = $('seg-statement');
+        const segEditor = $('seg-editor');
+        const segResults = $('seg-results');
+
+        function setMobileTab(tab) {
+            segStatement.classList.toggle('active', tab === 'statement');
+            segEditor.classList.toggle('active', tab === 'editor');
+            segResults.classList.toggle('active', tab === 'results');
+
+            if (tab === 'statement') {
+                panelStatement.classList.add('mobile-active');
+                panelRight.classList.remove('mobile-active');
+            } else if (tab === 'editor') {
+                panelStatement.classList.remove('mobile-active');
+                panelRight.classList.add('mobile-active');
+                panelRight.classList.add('show-editor');
+                panelRight.classList.remove('show-results');
+                setTimeout(() => {
+                    updateLineNumbers();
+                    updateHighlight();
+                    syncScroll();
+                }, 50);
+            } else if (tab === 'results') {
+                panelStatement.classList.remove('mobile-active');
+                panelRight.classList.add('mobile-active');
+                panelRight.classList.remove('show-editor');
+                panelRight.classList.add('show-results');
+            }
+        }
+
+        segStatement.onclick = () => setMobileTab('statement');
+        segEditor.onclick = () => setMobileTab('editor');
+        segResults.onclick = () => setMobileTab('results');
+        const segSolution = $('seg-solution');
+        if (segSolution) segSolution.onclick = openSolutionModal;
+
+        // Modal Cheatsheet Helpers
+        function openCheatModal() {
+            $('modal-cheat').classList.add('open');
+            $('modal-cheat').setAttribute('aria-hidden', 'false');
+        }
+        function closeCheatModal() {
+            $('modal-cheat').classList.remove('open');
+            $('modal-cheat').setAttribute('aria-hidden', 'true');
+        }
+        $('btn-cheat').onclick = openCheatModal;
+        $('modal-close').onclick = closeCheatModal;
+        $('modal-cheat').onclick = e => { if (e.target === $('modal-cheat')) closeCheatModal(); };
+
+        // Reference Solution Modal Helpers
+        let currentSolutionCode = '';
+        async function openSolutionModal() {
+            try {
+                const res = await fetch(`solutions/${currentProblemId}.bnl`);
+                if (!res.ok) throw new Error(`Solution ${currentProblemId} not found`);
+                currentSolutionCode = await res.text();
+            } catch (err) {
+                currentSolutionCode = `// Problem ${currentProblemId} reference solution unavailable.`;
+            }
+            $('solution-modal-heading').textContent = `Problem ${currentProblemId} — সমাধান (Solution)`;
+            const codeEl = $('solution-code-view');
+            codeEl.innerHTML = typeof highlightSource === 'function' 
+                ? highlightSource(currentSolutionCode) 
+                : escapeHtml(currentSolutionCode);
+            $('modal-solution').classList.add('open');
+            $('modal-solution').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeSolutionModal() {
+            $('modal-solution').classList.remove('open');
+            $('modal-solution').setAttribute('aria-hidden', 'true');
+        }
+
+        const btnSolution = $('btn-solution');
+        if (btnSolution) btnSolution.onclick = openSolutionModal;
+        const modalSolutionClose = $('modal-solution-close');
+        if (modalSolutionClose) modalSolutionClose.onclick = closeSolutionModal;
+        $('modal-solution').onclick = e => { if (e.target === $('modal-solution')) closeSolutionModal(); };
+
+        $('btn-copy-solution').onclick = () => {
+            if (!currentSolutionCode) return;
+            navigator.clipboard.writeText(currentSolutionCode).then(() => {
+                const btn = $('btn-copy-solution');
+                const orig = btn.querySelector('span').textContent;
+                btn.querySelector('span').textContent = 'Copied!';
+                setTimeout(() => btn.querySelector('span').textContent = orig, 1200);
+            });
+        };
+
+        $('btn-load-solution').onclick = () => {
+            if (!currentSolutionCode) return;
+            srcEl.value = currentSolutionCode;
+            updateLineNumbers();
+            updateHighlight();
+            syncScroll();
+            saveCode(currentProblemId, currentSolutionCode);
+            closeSolutionModal();
+            if (window.innerWidth <= 768) {
+                setMobileTab('editor');
+            }
+            srcEl.focus();
+        };
+
+        document.addEventListener('keydown', e => { 
+            if (e.key === 'Escape') {
+                closeCheatModal(); 
+                closeSolutionModal();
+            }
+        });
+
+        // Desktop Resizable Divider
+        (function initDivider() {
+            const divider = $('panel-divider');
+            const mainEl = document.querySelector('main');
+            let isDragging = false;
+
+            if (!divider) return;
+
+            divider.addEventListener('pointerdown', (e) => {
+                if (window.innerWidth <= 768) return;
+                isDragging = true;
+                divider.classList.add('dragging');
+                document.body.classList.add('resizing-panels');
+                divider.setPointerCapture(e.pointerId);
+                e.preventDefault();
+            });
+
+            document.addEventListener('pointermove', (e) => {
+                if (!isDragging) return;
+                const mainRect = mainEl.getBoundingClientRect();
+                const relX = e.clientX - mainRect.left;
+                let ratio = relX / mainRect.width;
+                ratio = Math.max(0.22, Math.min(0.78, ratio));
+                panelStatement.style.flexGrow = ratio;
+                panelStatement.style.flexBasis = '0';
+                panelRight.style.flexGrow = 1 - ratio;
+                panelRight.style.flexBasis = '0';
+            });
+
+            const stopDrag = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                divider.classList.remove('dragging');
+                document.body.classList.remove('resizing-panels');
+            };
+            document.addEventListener('pointerup', stopDrag);
+            document.addEventListener('pointercancel', stopDrag);
+        })();
+
+        // Load Problem Data
+        async function loadProblem() {
+            try {
+                const res = await fetch(`problems/${currentProblemId}.json`);
+                if (!res.ok) throw new Error(`Problem ${currentProblemId} not found`);
+                currentProblemData = await res.json();
+                renderProblem(currentProblemData);
+            } catch (err) {
+                $('prob-title').textContent = 'সমস্যা খুঁজে পাওয়া যায়নি';
+                $('prob-statement').textContent = err.message;
+            }
+        }
+
+        function renderProblem(p) {
+            document.title = `${p.id} — ${p.title} | Kagu Online Judge`;
+            const probSel = $('prob-selector');
+            if (probSel) probSel.value = String(p.id);
+            try {
+                sessionStorage.setItem('kagu.judge.currentProblem', String(p.id));
+                localStorage.setItem('kagu.judge.currentProblem', String(p.id));
+            } catch (e) {}
+
+            $('prob-title').innerHTML = `<span>${escapeHtml(p.title)}</span>`;
+            $('chip-id').textContent = `ID: ${p.id}`;
+            $('chip-level').textContent = p.level || 'Beginner';
+            $('chip-timelimit').textContent = `Limit: ${(p.timeLimitMs || 2000) / 1000}s`;
+            $('chip-checker').textContent = `Checker: ${p.checker || 'exact'}`;
+            updateSolvedStatusUI();
+
+            $('prob-statement').innerHTML = formatMarkdown(p.statement);
+            $('prob-input-spec').innerHTML = formatMarkdown(p.inputSpec);
+            $('prob-output-spec').innerHTML = formatMarkdown(p.outputSpec);
+
+            if (p.note) {
+                $('prob-note').innerHTML = formatMarkdown(p.note);
+                $('prob-note-container').style.display = 'block';
+            } else {
+                $('prob-note-container').style.display = 'none';
+            }
+
+            // Render samples
+            const samplesContainer = $('samples-list');
+            samplesContainer.innerHTML = '';
+            (p.samples || []).forEach((sample, idx) => {
+                const card = document.createElement('div');
+                card.className = 'sample-case-card';
+                card.innerHTML = `
+                    <div class="sample-case-header">
+                        <span>নমুনা ${idx + 1} (Sample ${idx + 1})</span>
+                        <button class="btn-sample-copy" type="button" data-copy="${escapeHtml(sample.in)}">ইনপুট কপি</button>
+                    </div>
+                    <div class="sample-grid">
+                        <div class="sample-box">
+                            <div class="sample-box-label">ইনপুট (Input)</div>
+                            <pre class="sample-code">${sample.in ? escapeHtml(sample.in) : '<em>(কোনো ইনপুট নেই)</em>'}</pre>
+                        </div>
+                        <div class="sample-box">
+                            <div class="sample-box-label">আউটপুট (Output)</div>
+                            <pre class="sample-code">${escapeHtml(sample.out)}</pre>
+                        </div>
+                    </div>
+                `;
+                samplesContainer.appendChild(card);
+            });
+
+            // Bind sample copy buttons
+            samplesContainer.querySelectorAll('.btn-sample-copy').forEach(btn => {
+                btn.onclick = () => {
+                    const text = btn.getAttribute('data-copy');
+                    navigator.clipboard.writeText(text).then(() => {
+                        const original = btn.textContent;
+                        btn.textContent = 'কপি হয়েছে!';
+                        setTimeout(() => btn.textContent = original, 1200);
+                    });
+                };
+            });
+
+            // Load saved code or starter template
+            const saved = getSavedCode(p.id);
+            if (saved !== null && saved.trim().length > 0) {
+                srcEl.value = saved;
+            } else {
+                srcEl.value = `// Problem ${p.id} — ${p.title}\n\n`;
+            }
+            updateLineNumbers();
+            updateHighlight();
+            syncScroll();
+        }
+
+        function formatMarkdown(text) {
+            if (!text) return '';
+            let html = escapeHtml(text);
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            html = html.replace(/\n/g, '<br>');
+            return html;
+        }
+
+        // ============================================================
+        // Judging & Results Presentation
+        // ============================================================
+        async function runSubmission(isSampleOnly = false) {
+            if (!currentProblemData) return;
+            const code = srcEl.value;
+            if (!code.trim()) {
+                alert('অনুগ্রহ করে কোড লিখুন!');
+                return;
+            }
+
+            // On mobile, automatically show the Results tab!
+            if (window.innerWidth <= 768) {
+                setMobileTab('results');
+            }
+
+            const btnSamples = $('btn-run-samples');
+            const btnSubmit = $('btn-submit');
+            if (btnSamples) btnSamples.disabled = true;
+            if (btnSubmit) btnSubmit.disabled = true;
+
+            const resultsContent = $('results-content');
+            const quickBadge = $('results-quick-badge');
+            quickBadge.innerHTML = '<span class="badge-verdict badge-pending"><span class="judge-spinner"></span> Judging...</span>';
+            $('judge-status-msg').textContent = isSampleOnly ? 'Running samples...' : 'Judging submission...';
+
+            resultsContent.innerHTML = `
+                <div style="padding:32px 16px; text-align:center; color:var(--text-muted);">
+                    <span class="judge-spinner" style="width:24px; height:24px; margin-bottom:12px;"></span>
+                    <div style="font-size:0.95rem; font-weight:600;">${isSampleOnly ? 'স্যাম্পল টেস্ট যাচাই করা হচ্ছে...' : 'সবগুলো টেস্ট যাচাই করা হচ্ছে...'}</div>
+                </div>
+            `;
+
+            try {
+                const judgeResult = await judgeClient.runJudge(currentProblemData, code, {
+                    isSampleOnly,
+                    onProgress: (testRes, idx, total) => {
+                        $('judge-status-msg').textContent = `Testing ${idx + 1} of ${total}...`;
+                    }
+                });
+
+                renderResults(judgeResult, isSampleOnly);
+            } catch (err) {
+                resultsContent.innerHTML = `
+                    <div class="ce-error-card">
+                        <div class="ce-error-title">Judging Error</div>
+                        <div class="ce-error-msg">${escapeHtml(err.message)}</div>
+                    </div>
+                `;
+            } finally {
+                if (btnSamples) btnSamples.disabled = false;
+                if (btnSubmit) btnSubmit.disabled = false;
+            }
+        }
+
+        function getVerdictClass(verdict) {
+            switch (verdict) {
+                case 'Accepted': return 'badge-ac';
+                case 'Wrong Answer': return 'badge-wa';
+                case 'Presentation Error': return 'badge-pe';
+                case 'Time Limit Exceeded': return 'badge-tle';
+                case 'Compilation Error': return 'badge-ce';
+                case 'Runtime Error': return 'badge-re';
+                default: return 'badge-wa';
+            }
+        }
+
+        function getVerdictBannerClass(verdict) {
+            switch (verdict) {
+                case 'Accepted': return 'is-ac';
+                case 'Wrong Answer': return 'is-wa';
+                case 'Presentation Error': return 'is-pe';
+                case 'Time Limit Exceeded': return 'is-tle';
+                case 'Compilation Error': return 'is-ce';
+                case 'Runtime Error': return 'is-re';
+                default: return 'is-wa';
+            }
+        }
+
+        function renderResults(res, isSampleOnly) {
+            const resultsContent = $('results-content');
+            const quickBadge = $('results-quick-badge');
+
+            const verdictClass = getVerdictClass(res.verdict);
+            const bannerClass = getVerdictBannerClass(res.verdict);
+
+            quickBadge.innerHTML = `<span class="badge-verdict ${verdictClass}">${escapeHtml(res.verdict)}</span>`;
+            $('judge-status-msg').textContent = `Verdict: ${res.verdict} (${res.totalDuration}ms)`;
+
+            if (!isSampleOnly && res.verdict === 'Accepted') {
+                markProblemSolved(currentProblemId);
+            }
+
+            let html = `
+                <div class="results-banner ${bannerClass}">
+                    <div class="results-banner-left">
+                        <span class="badge-verdict ${verdictClass}" style="font-size:0.95rem; padding:4px 12px;">
+                            ${escapeHtml(res.verdict)}
+                        </span>
+                        <div>
+                            <div class="results-banner-title">${res.verdict === 'Accepted' ? 'অভিনন্দন! সবগুলো টেস্ট পাশ করেছে।' : escapeHtml(res.verdict)}</div>
+                            <div class="results-banner-meta">
+                                ${isSampleOnly ? 'Sample Check' : 'Submission'} • 
+                                ${res.passedTests} / ${res.totalTests} tests passed • 
+                                ${res.totalDuration} ms
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Compilation error card
+            const ceTest = res.results.find(r => r.verdict === 'Compilation Error');
+            if (ceTest && ceTest.error) {
+                html += `
+                    <div class="ce-error-card">
+                        <div class="ce-error-title">✕ Compilation Error (Line ${ceTest.error.line || 1}, Col ${ceTest.error.col || 0})</div>
+                        <div class="ce-error-msg">${escapeHtml(ceTest.error.message || 'Syntax/Semantic error')}</div>
+                    </div>
+                `;
+            }
+
+            // Test rows table
+            html += `
+                <table class="tests-table">
+                    <thead>
+                        <tr>
+                            <th style="width:70px;">Test</th>
+                            <th>Type</th>
+                            <th>Verdict</th>
+                            <th style="text-align:right; width:80px;">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            res.results.forEach((r) => {
+                const trClass = r.pass ? '' : 'test-row-failed';
+                const vBadge = `<span class="badge-verdict ${getVerdictClass(r.verdict)}">${escapeHtml(r.verdict)}</span>`;
+                html += `
+                    <tr class="${trClass}">
+                        <td style="font-family:var(--font-mono); font-weight:700;">#${r.testNum}</td>
+                        <td style="color:var(--text-muted); font-size:0.82rem;">${r.isSample ? `Sample ${r.sampleNum}` : 'Hidden Test'}</td>
+                        <td>${vBadge}</td>
+                        <td style="text-align:right; font-family:var(--font-mono); font-size:0.82rem;">${r.duration || 1} ms</td>
+                    </tr>
+                `;
+
+                if (!r.pass && r.isSample) {
+                    html += `
+                        <tr class="test-row-failed">
+                            <td colspan="4" style="padding:0 12px 14px;">
+                                <div class="sample-diff-container">
+                                    <div class="diff-grid">
+                                        <div class="diff-col">
+                                            <h5>Input</h5>
+                                            <div class="diff-box">${r.input ? escapeHtml(r.input) : '<em>(No input)</em>'}</div>
+                                        </div>
+                                        <div class="diff-col">
+                                            <h5>Expected Output</h5>
+                                            <div class="diff-box is-expected">${escapeHtml(r.expected || '')}</div>
+                                        </div>
+                                        <div class="diff-col">
+                                            <h5>Your Output</h5>
+                                            <div class="diff-box is-actual">${r.actual ? escapeHtml(r.actual) : '<em>(Empty output)</em>'}</div>
+                                        </div>
+                                    </div>
+                                    ${r.message ? `<div style="font-size:0.8rem; color:var(--text-faint); margin-top:8px;">${escapeHtml(r.message)}</div>` : ''}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else if (!r.pass && !r.isSample) {
+                    html += `
+                        <tr class="test-row-failed">
+                            <td colspan="4" style="padding:6px 12px 12px; font-size:0.8rem; color:var(--text-faint);">
+                                <em>(হিডেন টেস্টের ইনপুট ও আউটপুট ডাটা সংরক্ষিত রাখা হয়েছে)</em>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            html += `</tbody></table>`;
+            resultsContent.innerHTML = html;
+        }
+
+        $('btn-run-samples').onclick = () => runSubmission(true);
+        $('btn-submit').onclick = () => runSubmission(false);
+
+        document.addEventListener('DOMContentLoaded', loadProblem);
+    </script>
+</body>
+</html>

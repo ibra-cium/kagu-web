@@ -1,0 +1,51 @@
+{
+  "id": 1004,
+  "title": "জোড় না বিজোড়",
+  "level": "Beginner",
+  "statement": "একটি পূর্ণসংখ্যা N দেওয়া আছে। N জোড় সংখ্যা হলে `Jor` এবং বিজোড় সংখ্যা হলে `Bijor` প্রিন্ট করো।",
+  "inputSpec": "এক লাইনে একটি পূর্ণসংখ্যা N। (0 ≤ N ≤ 1000000)",
+  "outputSpec": "এক লাইনে `Jor` অথবা `Bijor` প্রিন্ট করো।",
+  "note": "0 একটি জোড় সংখ্যা।",
+  "samples": [
+    {
+      "in": "7\n",
+      "out": "Bijor\n"
+    },
+    {
+      "in": "10\n",
+      "out": "Jor\n"
+    }
+  ],
+  "tests": [
+    {
+      "in": "0\n",
+      "out": "Jor\n"
+    },
+    {
+      "in": "1\n",
+      "out": "Bijor\n"
+    },
+    {
+      "in": "2\n",
+      "out": "Jor\n"
+    },
+    {
+      "in": "999999\n",
+      "out": "Bijor\n"
+    },
+    {
+      "in": "1000000\n",
+      "out": "Jor\n"
+    },
+    {
+      "in": "12345\n",
+      "out": "Bijor\n"
+    },
+    {
+      "in": "88888\n",
+      "out": "Jor\n"
+    }
+  ],
+  "checker": "exact",
+  "timeLimitMs": 2000
+}

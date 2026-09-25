@@ -1,0 +1,8 @@
+shongkha a = 0;
+shongkha b = 0;
+nao(a);
+nao(b);
+dekhao(a + b, "\n");
+dekhao(a - b, "\n");
+dekhao(a * b, "\n");
+dekhao(a / b, "\n");

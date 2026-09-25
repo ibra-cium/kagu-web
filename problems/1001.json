@@ -1,0 +1,22 @@
+{
+  "id": 1001,
+  "title": "Hello World",
+  "level": "Beginner",
+  "statement": "এটি তোমার প্রথম BNLang প্রোগ্রাম! স্ক্রিনে \"Hello World\" লেখাটি প্রিন্ট করো।",
+  "inputSpec": "এই প্রবলেমে কোনো ইনপুট নেই।",
+  "outputSpec": "এক লাইনে `Hello World` প্রিন্ট করো। লাইনের শেষে একটি newline (`\\n`) দাও।",
+  "samples": [
+    {
+      "in": "",
+      "out": "Hello World\n"
+    }
+  ],
+  "tests": [
+    {
+      "in": "",
+      "out": "Hello World\n"
+    }
+  ],
+  "checker": "exact",
+  "timeLimitMs": 2000
+}

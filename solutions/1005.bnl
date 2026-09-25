@@ -1,0 +1,17 @@
+shongkha n = 0;
+nao(n);
+jodi (n % 2 == 0) {
+    dekhao("2: Ha\n");
+} nahole {
+    dekhao("2: Na\n");
+}
+jodi (n % 5 == 0) {
+    dekhao("5: Ha\n");
+} nahole {
+    dekhao("5: Na\n");
+}
+jodi (n % 10 == 0) {
+    dekhao("10: Ha\n");
+} nahole {
+    dekhao("10: Na\n");
+}

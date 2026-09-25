@@ -1,0 +1,7 @@
+shongkha n = 0;
+nao(n);
+jodi (n % 2 == 0) {
+    dekhao("Jor\n");
+} nahole {
+    dekhao("Bijor\n");
+}

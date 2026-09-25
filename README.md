@@ -78,16 +78,85 @@ kaj shongkha jog(shongkha a, shongkha b) {
 ```
 kagu-web/
 ├── index.html        # Modern IDE interface, SEO metadata, JSON-LD Schema.org
+├── problems.html     # Problem list: ID, Bangla title, level, solved status
+├── problem.html      # Problem statement & online judge editor interface
 ├── style.css         # Rickshaw Dhaka Night theme, layout, responsive breakpoints
 ├── bnlang.js         # Core Emscripten / WebAssembly BNLang compiler & runtime
 ├── js/
-│   └── highlight.js  # Lexical analyzer & syntax highlighter
+│   ├── highlight.js  # Lexical analyzer & syntax highlighter
+│   ├── types.js      # Type definitions and helper functions
+│   ├── judge.js      # Test runner, comparator (exact/float), verdict resolution
+│   └── judge-worker.js # Web Worker executing code with isolated timeouts
+├── problems/         # Problem definitions (JSON) & index.json
+├── solutions/        # Reference solutions (*.bnl) for all problems
+├── tools/
+│   ├── probe.js      # Engine probe verifying data types, precision, and worker runtime
+│   └── validate.js   # Automated test suite validating all problems and verdicts
 ├── assets/           # Logos, Dhaka SVG artwork, favicons, OG preview cards
 ├── examples/         # Canonical BNLang v2 sample programs
 ├── robots.txt        # Search crawler directives
 ├── sitemap.xml       # Search engine indexing sitemap
 └── manifest.json     # PWA / Web application manifest
 ```
+
+---
+
+## 🏆 Problems / Online Judge
+
+Kagu Web includes a fully static, client-side online judge inspired by platforms like beecrowd and Codeforces.
+
+### Key Features
+- **Zero Backend Required**: Runs tests inside a sandboxed Web Worker (`js/judge-worker.js`).
+- **Standard Verdicts**:
+  - `Accepted (AC)`: Output passes exact or floating-point comparison.
+  - `Wrong Answer (WA)`: Output does not match expected output.
+  - `Presentation Error (PE)`: Output matches expected only when all whitespace is removed.
+  - `Time Limit Exceeded (TLE)`: Worker execution exceeds `timeLimitMs` or triggers interpreter loop limit (1,000,000 iterations).
+  - `Compilation Error (CE)`: Syntax, lexical, or semantic compile-time errors.
+  - `Runtime Error (RE)`: Unhandled runtime errors (e.g., unexpected EOF on input).
+- **Protected Hidden Tests**: Only sample tests show side-by-side I/O on failure; hidden tests remain confidential.
+- **Progress Tracking**: Solved status (`kagu.judge.solved`) and code autosave (`kagu.judge.code.<id>`) persist in browser `localStorage`.
+
+### How to Add a New Problem
+1. **Choose an ID** (e.g. `1006`).
+2. **Create `problems/1006.json`**:
+   ```json
+   {
+     "id": 1006,
+     "title": "প্রবলেমের শিরোনাম",
+     "level": "Beginner",
+     "statement": "সমস্যার বিস্তারিত বিবরণ...",
+     "inputSpec": "ইনপুট বিবরণ...",
+     "outputSpec": "আউটপুট বিবরণ...",
+     "note": "ঐচ্ছিক নোট...",
+     "samples": [
+       { "in": "10 20\n", "out": "30\n" }
+     ],
+     "tests": [
+       { "in": "0 0\n", "out": "0\n" },
+       { "in": "100 500\n", "out": "600\n" }
+     ],
+     "checker": "exact",
+     "timeLimitMs": 2000
+   }
+   ```
+   *For float checkers, use `"checker": "float"` and set `"floatTolerance": 0.01`.*
+3. **Add entry to `problems/index.json`**:
+   ```json
+   { "id": 1006, "title": "প্রবলেমের শিরোনাম", "level": "Beginner" }
+   ```
+4. **Create reference solution `solutions/1006.bnl`**:
+   ```bnl
+   shongkha a = 0;
+   shongkha b = 0;
+   nao(a);
+   nao(b);
+   dekhao(a + b, "\n");
+   ```
+5. **Run test validation**:
+   ```bash
+   node tools/validate.js
+   ```
 
 ---
 
@@ -110,3 +179,4 @@ Open `http://localhost:8000` in your web browser.
 ## 📄 Author & License
 
 Maintained by [Ibrahim (ibra-cium)](https://github.com/ibra-cium). Distributed under the MIT License.
+
